@@ -1,0 +1,38 @@
+function searchstreetinfo() {
+    const street_name = document.getElementById('streetName').value;
+    let primary_street = street_name;
+
+    let tabla = document.querySelector('#street tbody');
+    tabla.innerHTML = "";
+    let resultCount = 0;
+    fetch('https://data.winnipeg.ca/resource/lane_closure.json')
+      .then(response => response.json())
+      .then(streets => {
+        let found = false;
+        streets.sort((a, b) => (a.date_closed_from > b.date_closed_from) ? -1 : 1);
+        streets.forEach(route => {
+          if (route.primary_street.toLowerCase() == primary_street.toLowerCase() && resultCount < 100) { 
+            resultCount++;
+            found = true;
+            const row = document.createElement('tr');
+            row.innerHTML += `
+              <td>${route.primary_street}</td>
+              <td>${route.boundaries}</td>
+              <td>${route.direction}</td>
+              <td>${route.date_closed_from}</td>                  
+              <td>${route.date_closed_to}</td>
+              <td>${route.traffic_effect}</td> 
+              <td>${route.organization}</td> 
+              <td>${route.time_closed_from}</td> 
+              <td>${route.time_closed_to}</td>               
+            `;
+            tabla.appendChild(row);
+          }
+        });
+        if (!found) {
+          document.getElementById("errorMessage").innerHTML = "No results found.";
+        } else {
+          document.getElementById("errorMessage").innerHTML = "";
+        }
+      })
+  }

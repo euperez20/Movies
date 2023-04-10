@@ -1,0 +1,48 @@
+body{
+	
+    background-color: rgb(215, 238, 215);
+    font-family: Arial, Helvetica, sans-serif;
+   
+    
+}
+
+#container1 {
+    width: 900px;
+	margin:10px auto;
+	background-color:white; 
+    border-radius: 10px;
+    padding: 5%;
+}
+
+header #homemenu{
+    margin-left: 80%;
+	font-weight: bold;
+	font-size: 17px;   
+}
+
+#homemenu ul{
+    text-decoration: none;
+    list-style-type: none;
+}
+
+#shortpost ul li{
+    text-decoration: none;
+    list-style-type: none;
+}
+
+ul p.title{
+    font-weight: bold;
+    font-size: larger;
+    
+   
+}
+
+textarea#content{
+	width: 70%;
+    height: 60%;   
+}
+
+input#title, input#title_blog{
+	width: 70%;  
+}
+

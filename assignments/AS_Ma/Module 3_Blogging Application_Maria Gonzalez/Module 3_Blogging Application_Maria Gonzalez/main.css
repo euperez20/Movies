@@ -1,0 +1,83 @@
+body{
+	background-color:rgb(233, 234, 205); 
+}
+#main {
+    width: 900px;
+	margin:10px auto;
+	font-family: 'Carrois Gothic';
+    background-color:rgb(244, 185, 234);
+}
+
+header #menu{
+    margin-left: 86%;
+	font-weight: bold;
+	font-size: 17px;
+	padding: 1px;
+}
+
+#menu ul{
+    text-decoration: none;
+    list-style-type: none;
+}
+
+div #title{
+    width: 900px;
+	margin:10px auto;
+	font-family: 'Carrois Gothic';
+    background-color:white;
+	
+}
+
+p.title{
+	font-weight: bold;
+}
+
+
+form#post {
+	background: rgb(244, 185, 234);
+	border-radius:5px;
+	padding:20px;
+	width:500px;
+	height: 200px;
+	margin:0px auto;
+}
+
+
+h1 {
+    margin-left: 38%;
+}
+
+h1.edit, h1.post{
+	margin-left: 21%;
+}
+
+h2{
+	margin-left: 20%;
+}
+
+form#edit {
+	background: rgb(244, 185, 234);
+	border-radius:5px;
+	padding:20px;
+	width:500px;
+	height: 200px;
+	margin:0px auto;
+}
+
+input#title_edit, input#title_blog {
+	width: 70%;
+
+}
+
+textarea#content{
+	width: 70%;
+}
+
+label{
+	font-weight: bold;
+}
+
+
+
+
+

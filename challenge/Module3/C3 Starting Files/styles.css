@@ -1,0 +1,52 @@
+/*******w******** 
+    
+    Name: Eunice Perez
+    Date: 1 February, 2023
+    Description: Styles for HTML Blog Challenge
+
+****************/
+
+
+body{
+   background-color: black;
+   font-size: medium;
+   font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#container1{
+    background-color: #DDDDDD;
+    padding: 40px;
+    width: 750px;
+    border-radius: 10px;
+    margin-left: 20%;
+}
+
+#wrapper input[type="text"] {
+    width: 555px;
+    height: 35px;
+    border-radius: 7px;
+    border-color: lightgrey;
+    margin-left: 8%;
+    
+}
+
+#wrapper input[type="submit"] {
+    width: 100px;
+    height: 40px;
+    border-radius: 7px;
+    border-color: lightgrey;
+    font-weight: bold;
+    
+}
+
+#container2 ul{
+    list-style: none;
+    
+}
+
+#container2 ul li{
+    border: 2px solid;
+    border-color: rgb(172, 171, 171);
+    margin: 3%;
+    text-decoration: blue;
+}
