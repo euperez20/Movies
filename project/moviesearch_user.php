@@ -51,6 +51,7 @@ $statement->execute();
 $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
+
 <!-- bootstrap -->
 <!doctype html>
 <html lang="en">
@@ -58,68 +59,51 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <title>Welcome to ENTERTAINMENTMB</title>
   </head>
   <body>
+
+
   <div class="w-75 p-3">
     
-  <header>
-        <div id="container1">
-            <h1>ENTERTAINMENTMB</h1>
-        </div>
-
+    <header>
+      <div id="container1">
+          <h1>ENTERTAINMENTMB</h1>
+      </div>
 
         <!-- Navigation menu -->
         
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="moviesearch.php">Movies</a>
-      </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="login.php">Admin</a>
-      </li> -->
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="moviesearch.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         Admin
-        </a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="moviesearch_user.php">Movies</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login.php">Admin</a>
+            </li>   
+          </ul>
 
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Movie</a>
+          <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">
+            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
 
-
-          
-
-          <a class="dropdown-item" href="#">Category</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
         </div>
-      </li>
-
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
-
-
-
+      </nav>
     </header>
+
+    
     <div><br>
     <form class="searchform" method="GET" action="moviesearch_user.php" >
         <label for="category">Select a category:</label>
@@ -145,7 +129,7 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
 
     // Display the movie results
     foreach ($movies as $movie) {        
-        echo "<h3><p class=title><a class=edit href='" . "admincomments.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . "(" . $movie['releaseYear'] . ")</a></h3>" ;
+        echo "<h3><p class=title><a class=edit href='" . "addcomment.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . "(" . $movie['releaseYear'] . ")</a></h3>" ;
         // echo "<p>" . "<a class=edit href='" . "select.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . "View Details" . "</a>" . "</p>" . "<br>";
         echo "<p>{$movie['description']}</p>";
         echo "<img src=\"images/" . $movie['movieImage'] . "\">"; 
