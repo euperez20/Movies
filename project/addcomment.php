@@ -1,4 +1,4 @@
-
+<?php
 
 /*******w******** 
     
@@ -7,19 +7,7 @@
     Description: Module for add comments in each movie review
 
 ****************/
-
-   
-
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Movie Reviews</title>
-</head>
-<body>
-<div class="w-75 p-3">
-	<h1>Movie Reviews</h1>
-
-	<?php
+	
 		require('connect.php');
 		
 
@@ -41,9 +29,9 @@
 
 			echo '<p>Thank you for your comment!</p>';
 		}
-	?>
 
-	<?php
+
+	
 		// Fetch movie details
 		$stmt = $db->prepare("SELECT * FROM Movie WHERE movieId = :movieId");
 		$stmt->bindParam(':movieId', $_GET['movieId']);
@@ -61,6 +49,66 @@
 			echo '</div>';
 		}
 	?>
+
+
+<!-- bootstrap -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Welcome to ENTERTAINMENTMB</title>
+  </head>
+  <body>
+
+
+  <div class="w-75 p-3">
+    
+    <header>
+      <div id="container1">
+          <h1>ENTERTAINMENTMB</h1>
+      </div>
+
+        <!-- Navigation menu -->
+        
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="moviesearch_user.php">Movies</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login.php">Admin</a>
+            </li>   
+          </ul>
+
+          <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">
+            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+
+        </div>
+      </nav>
+    </header>
+
+
+
+
+
+
+
+
 
 	<h2>Comments</h2>
 

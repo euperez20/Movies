@@ -11,7 +11,7 @@
 require('connect.php');
 
 // Build and prepare SQL String with :id placeholder parameter.
-$query = "SELECT m.*, r.* FROM movie m LEFT JOIN review r ON m.movieId = r.movieId WHERE m.movieId = :movieId ";
+$query = "SELECT m.*, r.* FROM movie m LEFT JOIN review r ON m.movieId = r.movieId WHERE m.movieId = :movieId ORDER BY r.dateReview DESC";
 $statement = $db->prepare($query);
 
 // Sanitize $_GET['movieId'] to ensure it's a number.
@@ -138,24 +138,26 @@ if (is_array($rows) && count($rows) > 0) {
         <?php if (count($rows) > 0) { ?>
             <!-- Movie details -->
             <h1><?= $title ?></h1>
-            <h2><?php echo "<p>" . $rows[0]['releaseYear'] . "</p>"; ?> </h2>
-            <!-- <?php echo "<p><a class=edit href='" . "editmovie.php?movieId" . "=" . $movieId . "'" . ">" . "Edit" . "</a>" . "</p>"; ?>    -->
-            <!-- movieID -->
-            
-            <!-- <?php echo "<p>" . $movieId . "</p>"; ?>  -->
-            
+            <h3><?php echo "<p>" . $rows[0]['releaseYear'] . "</p>"; ?> </h3>  
+            <?php echo "<p>Directed by " . $rows[0]['director'] . "</p>"; ?>           
+            <!-- movieID -->    
+               
             <?php echo "<img src=\"images/" . $rows[0]['movieImage'] . "\">"; ?>
 
+            <div>
+                <h3><p>Review</p></h3>
+            </div>
             <?php echo "<p>" . $rows[0]['description'] . "</p>"; ?>
             <!-- User comments -->
             
             
             <div>
-                <h3><p>Comments:</p></h3>
+                <h3><p>Comments</p></h3>
             </div>
             <?php 
             foreach ($rows as $row) {
-                echo "<p><b>" . $row['fullName'] . "</b></p>";
+                // echo "<p><b>" . $row['fullName'] . "</b></p>";
+                echo '<p><b>' . $row['fullName'] . ' on ' . date('F j, Y', strtotime($row['dateReview'])) . '</b></p>';
                 echo "<p>" . $row['review'] . "</p>";
                 // echo "<p>" . "<a class=admincomments href='" . "admincomments.php?movieId" . "=" . $row['movieId'] . "'" . ">" . "Admin Comments" . "</a>" . "</p>" . "<br>"; 
                 

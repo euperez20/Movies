@@ -95,7 +95,7 @@ function highlight_words($text, $words) {
 
         <ul>
             <li>
-                <?php echo "<p class=title><a class=edit href='" . "admincomments.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . " (" . $movie['releaseYear'] . ") " . $movie['director'] . "</a> </p>";
+                <?php echo "<p class=title><a class=edit href='" . "select.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . " (" . $movie['releaseYear'] . ") " . $movie['director'] . "</a> </p>";
                  ?>
                
             </li>

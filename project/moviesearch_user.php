@@ -7,6 +7,7 @@
     Description: Module for reading movie review
 
 ****************/
+
 require 'connect.php';
 // require('authenticate.php');
 
@@ -129,7 +130,7 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
 
     // Display the movie results
     foreach ($movies as $movie) {        
-        echo "<h3><p class=title><a class=edit href='" . "addcomment.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . "(" . $movie['releaseYear'] . ")</a></h3>" ;
+        echo "<h3><p class=title><a class=edit href='" . "select.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . "(" . $movie['releaseYear'] . ")</a></h3>" ;
         // echo "<p>" . "<a class=edit href='" . "select.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . "View Details" . "</a>" . "</p>" . "<br>";
         echo "<p>{$movie['description']}</p>";
         echo "<img src=\"images/" . $movie['movieImage'] . "\">"; 

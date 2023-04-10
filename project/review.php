@@ -27,6 +27,7 @@ $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
 if (is_array($rows) && count($rows) > 0) {
     // Get the title from the first row.
     $title = $rows[0]['title'];
+   
 
     // Handle form submission.
     if ($_POST && !empty($_POST['review'])) {
@@ -80,6 +81,21 @@ if (is_array($rows) && count($rows) > 0) {
         header("Location: index.php");
         exit();
 } 
+
+  // Fetch comments for this movie
+  $stmt = $db->prepare("SELECT * FROM Review WHERE movieId = :movieId");
+  $stmt->bindParam(':movieId', $_GET['movieId']);
+  $stmt->execute();
+  $result = $stmt->fetchAll();
+
+//   foreach ($result as $row) {
+//       echo '<div>';
+//       echo '<p>' . $row['fullName'] . ' on ' . date('F j, Y', strtotime($row['reviewDate'])) . '</p>';
+//       echo '<p>' . $row['review'] . '</p>';
+//       echo '</div>';
+//   }
+
+
 
 
 // Check if the id of the post was passed in the URL
@@ -150,27 +166,64 @@ if (!isset($_GET['movieId'])) {
         
             <?php if (count($rows) > 0) { ?>
                 <!-- Movie details -->   
-                <?php echo "<h3><p class=title><a class=edit href='" . "admincomments.php?movieId" . "=" . $rows[0]['movieId'] . "'" . ">" . $rows[0]['title'] . " (" . $rows[0]['releaseYear'] . ")</a></h3>" ; ?>         
-                <?php echo "<p>" . $rows[0]['description'] . "</p>"; ?>
+                <?php echo "<h3><p class=title>" . $rows[0]['title'] . " (" . $rows[0]['releaseYear'] . ")</a></h3>" ; ?>         
+               
                 <?php echo "<img src=\"images/" . $rows[0]['movieImage'] . "\">"; ?>
+
+                <div>
+                    <h4><p>Review</p></h4>
+                </div>
+                <?php echo "<p>" . $rows[0]['description'] . "</p>"; ?>
+            
 
                 <!-- User comments -->
                 <div>
-                    <h3><p>Comments:</p></h3>
+                    <h4><p>Comments</p></h4>
                 </div>
             <?php 
             foreach ($rows as $row) {
-                echo "<p>" . $row['fullName'] . "</p>";
+                // echo "<p><b>" . $row['fullName'] . "</b></p>";
+                echo '<p><b>' . $row['fullName'] . ' on ' . date('F j, Y', strtotime($row['dateReview'])) . '</b></p>';
                 echo "<p>" . $row['review'] . "</p>";
-                // echo "<p>" . "<a class=admincomments href='" . "admincomments.php?movieId" . "=" . $row['movieId'] . "'" . ">" . "Delete Comment" . "</a>" . "</p>" . "<br>"; 
+        
                 ?>
              
-                <?php
-                
+                <?php                
             }
         }
         ?>
     </div>
+
+    <h2>Comments</h2>
+
+<div>
+            <h2>Add Comment</h2>
+            <form action="select.php" method="POST">
+                <input type="hidden" name="movieId" value="1">
+                
+                <label for="fullName">Name:</label>
+                <input type="text" id="fullName" name="fullName" required><br>
+                <label for="review">Comment:</label>
+                <textarea id="review" name="review" required></textarea><br>
+                <input type="submit" name="submit" value="Submit">
+            </form>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
