@@ -226,7 +226,8 @@ if (!$result){
  
         <!-- Buttons Submit and Delete -->
         <input type="submit" name="submit" value="Update Movie">
-        <input type="submit" name="delete" value="Delete">
+        <!-- <input type="submit" name="delete" value="Delete"> -->
+        <button type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure you want to delete this movie?');">Delete</button>
 
     </form>
 

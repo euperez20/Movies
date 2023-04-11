@@ -27,6 +27,7 @@ $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
 if (is_array($rows) && count($rows) > 0) {
     // Get the title from the first row.
     $title = $rows[0]['title'];
+    $reviewId = $rows[0]['reviewId'];
 
     // Handle form submission.
     if ($_POST && !empty($_POST['review'])) {
@@ -50,6 +51,7 @@ if (is_array($rows) && count($rows) > 0) {
         $review_query = "SELECT * FROM review WHERE movieId = :movieId";
         $review_statement = $db->prepare($review_query);
         $review_statement->bindValue(':movieId', $row['movieId']);
+
         $review_statement->execute();
 
         exit;
@@ -81,22 +83,28 @@ if (is_array($rows) && count($rows) > 0) {
         exit();
 } 
 
+
+
 // Delete comment
 if (isset($_POST['delete'])) {
-    $statement = $db->prepare("DELETE * FROM review WHERE reviewId = :reviewId");
+  
+  $stmt = $db->prepare("DELETE FROM review WHERE reviewId = :reviewId");
+  $stmt->bindValue(':reviewId', $_POST['reviewId']);
+  $stmt->execute();
 
-    $statement->bindValue(':reviewId', $_POST['reviewId']);
+  // Get the movie ID of the review that was just deleted
+  $movieId = $_POST['movieId'];
+  $reviewId = $_POST['reviewId'];
 
-    $statement->execute();
-
-    header('Location: select.php?movieId=$movieId');
-    exit;
+  // Redirect back to the movie page
+  header("Location: select.php?movieId=$movieId");
+  exit;
 }
 
 // Check if the id of the post was passed in the URL
 
 if (!isset($_GET['movieId'])) {   
-    header('Location: index.php');
+    header('Location: moviesearch.php');
     exit;
 
 } 
@@ -105,7 +113,6 @@ if (!isset($_GET['movieId'])) {
 
 ?>
 
-
 <!-- bootstrap -->
 <!doctype html>
 <html lang="en">
@@ -113,48 +120,64 @@ if (!isset($_GET['movieId'])) {
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <title>Welcome to ENTERTAINMENTMB</title>
   </head>
   <body>
-
-
-  <div class="w-75 p-3">
     
-    <header>
-      <div id="container1">
-          <h1>ENTERTAINMENTMB</h1>
-      </div>
+  <header>
+        <div id="container1">
+            <h1>ENTERTAINMENTMB</h1>
+        </div>
+
 
         <!-- Navigation menu -->
         
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="moviesearch_user.php">Movies</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.php">Admin</a>
-            </li>   
-          </ul>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="moviesearch_user.php">Movies</a>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="login.php">Admin</a>
+      </li> -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="moviesearch.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         Admin
+        </a>
 
-          <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">
-            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="moviepost.php">Movies</a>         
 
+          <a class="dropdown-item" href="categorypost.php">Categories</a>
+         
+
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="moviesearch.php">Search</a>
         </div>
-      </nav>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="True">Disabled</a>
+      </li>  -->
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
     </header>
 
 
@@ -162,35 +185,32 @@ if (!isset($_GET['movieId'])) {
     <div class="w-75 p-3">
 
 
-        <div class="adminmenu">
-            <ul>
 
-            <li><a class=create href="moviepost.php">Create Movies</a></li> 
-            <li><a class=create href=categorypost.php>Create Categories</a></li>
-            <?php echo "<li><a class=edit href='" . "editmovie.php?movieId" . "=" . $movieId . "'" . ">" . "Edit" . "</a>" . "</li>"; ?>
-
-            </ul>      
-        </div>
         <div id="container1">
         
             <?php if (count($rows) > 0) { ?>
                 <!-- Movie details -->   
-                <?php echo "<h3><p class=title><a class=edit href='" . "admincomments.php?movieId" . "=" . $rows[0]['movieId'] . "'" . ">" . $rows[0]['title'] . " (" . $rows[0]['releaseYear'] . ")</a></h3>" ; ?>
+                <?php echo "<h3><p class=title>" . $rows[0]['title'] . " (" . $rows[0]['releaseYear'] . ")</a></h3>" ; ?>
                 <?php echo "<p><a class=edit href='" . "editmovie.php?movieId" . "=" . $movieId . "'" . ">" . "Edit" . "</a>" . "</p>"; ?>           
                 <?php echo "<p>" . $rows[0]['description'] . "</p>"; ?>
                 <?php echo "<img src=\"images/" . $rows[0]['movieImage'] . "\">"; ?>
 
                 <!-- User comments -->
                 <div>
-                    <h3><p>Comments:</p></h3>
+                    <h3><p>Comments</p></h3>
                 </div>
             <?php 
             foreach ($rows as $row) {
-                echo "<p>" . $row['fullName'] . "</p>";
+                // echo "<p><b>" . $row['fullName'] . "</b></p>";
+                echo '<p><b>' . $row['fullName'] . ' on ' . date('F j, Y', strtotime($row['dateReview'])) . '</b></p>';
                 echo "<p>" . $row['review'] . "</p>";
+                // echo "<p>" . "<a class=admincomments href='" . "admincomments.php?movieId" . "=" . $row['movieId'] . "'" . ">" . "Admin Comments" . "</a>" . "</p>" . "<br>"; 
+                
+                echo "<p>" . $row['reviewId'] . "</p>";
                 // echo "<p>" . "<a class=admincomments href='" . "admincomments.php?movieId" . "=" . $row['movieId'] . "'" . ">" . "Delete Comment" . "</a>" . "</p>" . "<br>"; 
                 ?>
                 <input type="submit" name="delete" value="Delete">
+                <!-- <button type="submit" onclick="return confirm('Are you sure you want to delete this comment?');">Delete</button> -->
                 <?php
                 
             }
