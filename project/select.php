@@ -84,7 +84,7 @@ if (is_array($rows) && count($rows) > 0) {
 ?>
 
 
-    <!-- bootstrap -->
+ <!-- bootstrap -->
 <!doctype html>
 <html lang="en">
   <head>
@@ -93,12 +93,17 @@ if (is_array($rows) && count($rows) > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
 
     <title>Welcome to ENTERTAINMENTMB</title>
   </head>
-
-        <div class="w-75 p-3">
-        <body>
+  <body>
+<!-- 
+<div class="col">
+  <h1>test</h1>
+</div> -->
+  <div class="w-75_p-3">
+    
     <header>
       <div id="container1">
           <h1>ENTERTAINMENTMB</h1>

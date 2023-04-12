@@ -174,7 +174,7 @@ if (isset($_FILES['movieImage'])) {
 
     <div id=container1>
 
-        <h1>Create New Movie</h1>
+        <h2>Create New Movie</h2>
         <form id="post" action="moviepost.php" method="post" enctype="multipart/form-data">
        
             <div>
