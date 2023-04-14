@@ -302,6 +302,12 @@ form input[type="submit"]:hover {
     background-color: #555;
 }
 
+/* 
+.form-inline my-2 my-lg-0{
+    background: #4CAF50;
+} */
+
+
 
 /* Administration */
 .adminmenu {
