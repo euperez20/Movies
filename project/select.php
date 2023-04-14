@@ -104,14 +104,14 @@ if (is_array($rows) && count($rows) > 0) {
 </div> -->
   <div class="w-75_p-3">
     
-    <header>
+  <header>
       <div id="container1">
           <h1>ENTERTAINMENTMB</h1>
       </div>
 
         <!-- Navigation menu -->
         
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
