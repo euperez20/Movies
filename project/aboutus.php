@@ -23,11 +23,7 @@
     <title>Welcome to ENTERTAINMENTMB</title>
   </head>
   <body>
-<!-- 
-<div class="col">
-  <h1>test</h1>
-</div> -->
-  <div class="w-75_p-3-new">
+    <div class="w-75_p-3">
     
     <header>
       <div id="container1">

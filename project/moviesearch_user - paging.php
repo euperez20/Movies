@@ -10,10 +10,18 @@
 
 require 'connect.php';
 
+// Set default values for page and results per page
+$page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT);
+if (!$page) {
+    $page = 1;
+}
+$results_per_page = 4;
+
 $query_categories = "SELECT * FROM category";
 $statement_categories = $db->prepare($query_categories);
 $statement_categories->execute();
 $categories = $statement_categories->fetchAll(PDO::FETCH_ASSOC);
+
 // Get selected category
 $category = filter_input(INPUT_GET, 'category', FILTER_SANITIZE_STRING);
 
@@ -39,15 +47,39 @@ if (!empty($category)) {
             break;
     }
 
+    // Add LIMIT and OFFSET clauses for paging
+    $query .= " LIMIT :offset, :limit";
+    $offset = ($page - 1) * $results_per_page;
     $statement = $db->prepare($query);
     $statement->bindValue(':category', $category);
+    $statement->bindValue(':offset', $offset, PDO::PARAM_INT);
+    $statement->bindValue(':limit', $results_per_page, PDO::PARAM_INT);
 } else {
     $query = "SELECT * FROM movie";
+    // Add LIMIT and OFFSET clauses for paging
+    $query .= " LIMIT :offset, :limit";
+    $offset = ($page - 1) * $results_per_page;
     $statement = $db->prepare($query);
+    $statement->bindValue(':offset', $offset, PDO::PARAM_INT);
+    $statement->bindValue(':limit', $results_per_page, PDO::PARAM_INT);
 }
 
 $statement->execute();
 $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+// Get total number of movies for pagination
+if (!empty($category)) {
+    $query_count = "SELECT COUNT(*) FROM movie WHERE categoryId = :category";
+    $statement_count = $db->prepare($query_count);
+    $statement_count->bindValue(':category', $category);
+} else {
+    $query_count = "SELECT COUNT(*) FROM movie";
+    $statement_count = $db->prepare($query_count);
+}
+
+$statement_count->execute();
+$total_results = $statement_count->fetchColumn();
+$total_pages = ceil($total_results / $results_per_page);
 
 ?>
 
@@ -118,8 +150,8 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
     <div><br>
     
     <form class="form-no-border" method="GET" action="moviesearch_user.php">
-    <h3><p>Movie Collection</p></h3>
-    <label for="category">Filter by category:</label>
+    <h3><p>Filter Movies</p></h3>
+    <label for="category">Select a category:</label>
     <select name="category" id="category" onchange="this.form.submit()">
         <option value="">All categories</option>
         <?php foreach ($categories as $category): ?>
@@ -128,14 +160,13 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
     </select>
     <noscript><button class="submitselect" type="submit">Search</button></noscript>
 
-    <?php if (isset($_GET['category'])): ?>
+    
+
+<?php if (isset($_GET['category'])): ?>
     <?php if (empty($movies)): ?>
-      <div class="searchusr">
         <p>No results.</p>
-    </div>
-    <?php else: ?>
-        <div class="searchusr">
-          <?php
+    <?php else: 
+        
         foreach ($movies as $movie) {        
         echo "<h3><p class=title><a class=edit href='" . "select.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . "(" . $movie['releaseYear'] . ")</a></h3>" ;
         echo "<p>{$movie['description']}</p>";
@@ -159,9 +190,39 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 
     </div>
-    </div>
+    <?php
 
+    
+    ?>
   </form>
+
+  <nav>
+  <ul class="pagination">
+    <li class="disabled"><a href="#">«</a></li>
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li><a href="#">»</a></li>
+  </ul>
+</nav>
+
+
+<script>
+
+$(function() {
+  $('ul.pagination li a').on('click', function(e) {
+    e.preventDefault();
+    $(this).parent().addClass('active').siblings().removeClass('active');
+  });
+});
+
+</script>
+
+
+
+
 
 <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -195,19 +195,16 @@ ul li {
     margin-left: 40%;
 }
 
-/* search form */
-/* .searchform {
-    margin: 20px;
-    display: flex;
-    flex-direction: row;
-} */
-/* .searchform label {
-  
-    margin-bottom: 50px;
-} */
+.searchusr{
+    margin-top: 50px;
+}
 
-
-
+.form-no-border{
+    border: none;
+    box-shadow: none;
+    
+    
+  }
 
 .searchform select, input[type="radio"] {
     margin-bottom: 50px;
@@ -223,16 +220,6 @@ ul li {
 }
 
 
-
-
-
-
-/* Movie hompage */
-
-/* #shortpost {
-    background-color: #4CAF50;   
- 
-} */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -304,11 +291,6 @@ form input[type="submit"] {
 form input[type="submit"]:hover {
     background-color: #555;
 }
-
-/* 
-.form-inline my-2 my-lg-0{
-    background: #4CAF50;
-} */
 
 
 
