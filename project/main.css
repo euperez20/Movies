@@ -14,12 +14,11 @@ body {
     background-color: #f5f5f5;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     width: 70%;
-    /* border: 1px solid black; */
     margin: 0px auto;
 }
 
 .w-75_p-3 {
-    /* border: 1px solid black; */
+    
     margin: 0px auto;  
 }
 
@@ -40,9 +39,9 @@ a {
 /* Header */
 
 header {
-    background-color: #333;
+    /* background-color: #333; */
     color: #fff;
-    padding: 20px;
+    /* padding: 20px; */
 }
 
 header a {
@@ -108,7 +107,11 @@ header nav a {
   display: block;
 }
 
-
+.navbar.navbar-expand-lg.navbar-dark{
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
 
 
 
@@ -200,10 +203,7 @@ ul li {
     margin-bottom: 50px;
 } */
 
-/* .navbar.navbar-expand-lg.navbar-dark.bg-dark{
-    background-color: #f90;
-    border: 1px solid white;
-} */
+
 
 
 .searchform select, input[type="radio"] {
