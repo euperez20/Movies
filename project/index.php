@@ -112,44 +112,41 @@ $image = filter_input(INPUT_GET, 'movieImage', FILTER_SANITIZE_STRING);
     </div>
 
   <div id="lastmovies">
-    <h2><p>Last Movies</p></h2>
+    <h2><p>Lastest Movies</p></h2>
   </div>
 
     <!-- Showing Content -->
   <div id=shortpost> 
 
     <table class="table">
-      <thead>
-        <tr>
-          <!-- <th scope="row">Name</th> -->
-          <!-- <th scope="row">Release Year</th>
-          <th scope="row">Director</th> -->
-        </tr>
-      </thead>
-      <tbody>    
-        <!-- Validation characters -->
-        <?php if(strlen($description) < 200){ 
-        // Showing movie brief information
-        // echo "<th scope='"."row>1</th>'";
-        $count = 0;
-        while($row = $statement->fetch(PDO::FETCH_ASSOC)){
-            if($count == 4) break; 
-            $count++;?>   
-            
-            <th scope="row"><?php echo "<p class=title><a class=edit href='" . "select.php?movieId" . "=" . $row['movieId'] . "'" . ">" . $row['title'] . " (" . $row['releaseYear'] . ")</a>" ;  ?> </th> 
+      
 
-            
-            <?php
-            echo "</div>";
-        }
-        echo "</div>";
-        }
-            ?>       
+        <div class="row">
+        <?php 
+          $count = 0;
+          while ($row = $statement->fetch() and $count < 4): 
+          $count++;
+          ?>
+          <div class="col-md-3 mb-3">
+            <div class="card">
+              <img src="<?= "images/" . $row['movieImage']  ?>" class="card-img-top" alt="<?= $row['title'] ?>">
+              <div class="card-body">
+
+              
+                <h5 class="card-title"><a href="select.php?movieId=<?= $row['movieId']?>" ><?= $row['title'] ?> </a> </h5>
+                <p class="card-text"><?= $row['description'] ?></p>
+              
+              </div>
+            </div>
+          </div>
+        <?php endwhile; ?>
+      </div>                 
           
     </table>
   </div>
 
-    
+
+
   
     </div>
     </div>
