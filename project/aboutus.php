@@ -1,27 +1,13 @@
-<?php
 
+<!-- 
 /*******w******** 
     
     Name: Eunice Perez
     Date: March 18,2023
     Description: Main page for CMS movies
 
-****************/
-require('connect.php');
+****************/ -->
 
-// Query Database
-$query = "SELECT * FROM movie ORDER BY movie.releaseYear DESC LIMIT 20";
-
-$statement = $db->prepare($query);
-
-$statement->execute();
-
-// Asigning variables
-$movieid = filter_input(INPUT_GET, 'movieId', FILTER_SANITIZE_NUMBER_INT);
-$description = filter_input(INPUT_GET, 'description', FILTER_SANITIZE_STRING);
-$image = filter_input(INPUT_GET, 'movieImage', FILTER_SANITIZE_STRING);
-
-?>
 
 <!-- bootstrap -->
 <!doctype html>
@@ -78,84 +64,24 @@ $image = filter_input(INPUT_GET, 'movieImage', FILTER_SANITIZE_STRING);
               <a class="nav-link" href="login.php">Admin</a>
             </li>   
           </ul>
-<!-- 
+
           <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">
             <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form> -->
+            <button class="btn btn-dark" type="submit">Search</button>
+          </form>
 
         </div>
       </nav>
     </header>
 
-    
-
-    <!-- Carousel -->
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-      <div class="carousel-item active">
-      <img src="images/carousel/1.jpg" class="d-block w-100" alt="1.jpg">
-    </div>
-    <div class="carousel-item">
-      <img src="images/carousel/2.jpg" class="d-block w-100" alt="2.jpg">
-    </div>
-    <div class="carousel-item">
-      <img src="images/carousel/3.jpg" class="d-block w-100" alt="3.jpg">
-    </div>
-  </div>
-    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-
-
     <div id="container2">
-        <b><p>Welcome to Entertainment MB!</p></b>
-        <p>We are dedicated to providing you with the latest news and information about all things entertainment in Manitoba. Our focus is on movies and movie fans that movies are more than just entertainment, they are a reflection of our society and culture.</p>
-        <p>Our site is designed to be a one-stop-shop for all your movie needs. Whether you’re looking for reviews of the latest blockbusters or want to learn more about classic films, we’ve got you covered. We also provide information about upcoming movie events in Manitoba, so you’ll never miss out on the latest releases.</p>
-        <p>At Entertainment MB, we’re passionate about movies and we want to share that passion with you. So sit back, relax, and let us guide you through the wonderful world of cinema!</p>
-        <p>I hope this helps! Let me know if you have any other questions.</p>
+        <b><h2><p>About Us</p></h2></b>
+        <p>Entertainment MB was founded in 2005 by a group of movie enthusiasts who were passionate about providing a better movie-watching experience to people. They noticed that the movie industry lacked diversity and wanted to produce movies that reflected different cultures and perspectives.</p>
+        <p>In 2010, Entertainment MB established itself as a production company with a mission to produce movies that reflected different cultures and perspectives. They worked with independent filmmakers who shared their vision and aimed to make a positive impact on the movie industry.</p>
+        <p>Entertainment MB released its first movie in 2015, which was critically acclaimed and commercially successful. The movie was praised for its unique storyline, diverse cast, and exceptional production quality. This success encouraged the company to produce more movies, and they quickly became a prominent player in the movie industry.</p>
+        <p>Over the years, Entertainment MB has continued to produce diverse and unique movies that have gained a loyal fan base. The company has expanded its operations globally, and its movies are now distributed in different countries. Entertainment MB has also diversified its operations and now produces TV shows and web series.</p>
+        <p>Today, Entertainment MB is recognized as a leading production company that is committed to bringing diversity to the movie industry. Their success is a testament to the team's hard work and dedication to providing quality entertainment. With a vision to continue producing unique and diverse content, Entertainment MB is poised for even greater success in the future.</p>
     </div>
-
-  <div id="lastmovies">
-    <h2><p>Lastest Movies</p></h2>
-  </div>
-
-    <!-- Showing Content -->
-  <div id=shortpost> 
-
-    <table class="table">
-      
-
-        <div class="row">
-        <?php 
-          $count = 0;
-          while ($row = $statement->fetch() and $count < 4): 
-          $count++;
-          ?>
-          <div class="col-md-3 mb-3">
-            <div class="card">
-              <img src="<?= "images/" . $row['movieImage']  ?>" class="card-img-top" alt="<?= $row['title'] ?>">
-              <div class="card-body">
-
-              
-                <h5 class="card-title"><a href="select.php?movieId=<?= $row['movieId']?>" ><?= $row['title'] ?> </a> </h5>
-                <p class="card-text"><?= $row['description'] ?></p>
-              
-              </div>
-            </div>
-          </div>
-        <?php endwhile; ?>
-      </div>                 
-          
-    </table>
-  </div>
-
 
 
   
@@ -193,9 +119,5 @@ $image = filter_input(INPUT_GET, 'movieImage', FILTER_SANITIZE_STRING);
 </footer>
 
 </html>
-
-
-
-
 
 

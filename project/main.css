@@ -87,7 +87,10 @@ header nav a {
     background-color: #4CAF50;
   }
 
-
+.form-inline.my-2.my-lg-0{
+    padding: 0px;
+    background-color: #000000;
+}
 
 .dropdown {
     position: relative;
