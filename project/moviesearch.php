@@ -69,31 +69,37 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
   <div class="w-75_p-3">
     
   <header>
-        <div id="container1">
-            <h1>ENTERTAINMENTMB</h1>
-        </div>
-
+      <div id="container1">
+          <!-- <h1>ENTERTAINMENTMB</h1> -->
+          <img src="images/logo/logo3.png" alt="My Logo">
+      </div>
 
         <!-- Navigation menu -->
         
-        <nav class="navbar navbar-expand-lg navbar-dark">
-  <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+      <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#000000;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="moviesearch.php">Movies</a>
-      </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="login.php">Admin</a>
-      </li> -->
-      <li class="nav-item dropdown">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="aboutus.php">About</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="moviesearch_user.php">Movies</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="moviesearch_user.php">Contact Us</a>
+            </li>
+
+            <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="moviesearch.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          Admin
         </a>
@@ -117,16 +123,16 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="True">Disabled</a>
       </li>  -->
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
 
+          <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">
+            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
+            <button class="btn btn-dark" type="submit">Search</button>
+          </form>
 
-
+        </div>
+      </nav>
     </header>
+
 
     <!-- <div>
         <form action="logout.php" method="post">
@@ -134,15 +140,17 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
         </form>
     </div> -->
 
-    <form class="searchform" method="GET" action="moviesearch.php" >
-        <label for="category">Select a category:</label>
-        <select name="category" id="category">
-            <option value="">All categories</option>
-            <?php foreach ($categories as $category): ?>
-                <option value="<?= $category['categoryId'] ?>"<?= $category == $category['categoryId'] ? ' selected' : '' ?>><?= $category['name'] ?></option>
-            <?php endforeach ?>
-        </select>
-        <div class="searchsort">       
+    <form class="form-no-border" method="GET" action="moviesearch_user.php">
+    <h3><p>Movie Collection</p></h3>
+    <label for="category">Filter by category:</label>
+    <select name="category" id="category" onchange="this.form.submit()">
+        <option value="">All categories</option>
+        <?php foreach ($categories as $category): ?>
+            <option value="<?= $category['categoryId'] ?>"<?= isset($_GET['category']) && $_GET['category'] == $category['categoryId'] ? ' selected' : '' ?>><?= $category['name'] ?></option>
+        <?php endforeach ?>
+    </select>
+
+          <div class="searchsort">       
             <label for="category">Sort by:</label>
             <input type="radio" id="sort-title" name="sort" value="title">
             <label for="sort-title">Title</label>
@@ -152,8 +160,46 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
             <label for="sort-releaseYear">Release year</label>
             <button type="submit">Search</button>
         </div>
+    <noscript><button class="submitselect" type="submit">Search</button></noscript>
 
-    </form>
+    <?php if (isset($_GET['category'])): ?>
+    <?php if (empty($movies)): ?>
+      <div class="searchusr">
+        <p>No results.</p>
+    </div>
+    <?php else: ?>
+
+      <!-- Sort results -->
+
+
+        <div class="searchusr">
+          <?php
+        foreach ($movies as $movie) {        
+        echo "<h3><p class=title><a class=edit href='" . "select.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . "(" . $movie['releaseYear'] . ")</a></h3>" ;
+        echo "<p>{$movie['description']}</p>";
+        echo "<img src=\"images/" . $movie['movieImage'] . "\">";
+       
+    }
+?>
+
+
+    <?php endif ?>
+<?php endif ?>
+
+
+<!-- Filter Category script -->
+    <script>
+      const categorySelect = document.getElementById('category');
+      categorySelect.addEventListener('change', function() {
+      document.getElementById('movie-search-form').submit();
+      });
+    </script>
+
+
+    </div>
+    </div>
+
+  </form>
     <?php
 
     // Display the movie results

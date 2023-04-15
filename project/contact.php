@@ -1,27 +1,13 @@
-<?php
 
+<!-- 
 /*******w******** 
     
     Name: Eunice Perez
     Date: March 18,2023
     Description: Main page for CMS movies
 
-****************/
-require('connect.php');
+****************/ -->
 
-// Query Database
-$query = "SELECT * FROM movie ORDER BY movie.releaseYear DESC LIMIT 20";
-
-$statement = $db->prepare($query);
-
-$statement->execute();
-
-// Asigning variables
-$movieid = filter_input(INPUT_GET, 'movieId', FILTER_SANITIZE_NUMBER_INT);
-$description = filter_input(INPUT_GET, 'description', FILTER_SANITIZE_STRING);
-$image = filter_input(INPUT_GET, 'movieImage', FILTER_SANITIZE_STRING);
-
-?>
 
 <!-- bootstrap -->
 <!doctype html>
@@ -37,11 +23,7 @@ $image = filter_input(INPUT_GET, 'movieImage', FILTER_SANITIZE_STRING);
     <title>Welcome to ENTERTAINMENTMB</title>
   </head>
   <body>
-<!-- 
-<div class="col">
-  <h1>test</h1>
-</div> -->
-  <div class="w-75_p-3-new">
+    <div class="w-75_p-3">
     
     <header>
       <div id="container1">
@@ -71,93 +53,53 @@ $image = filter_input(INPUT_GET, 'movieImage', FILTER_SANITIZE_STRING);
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="contact.php">Contact Us</a>
+              <a class="nav-link" href="moviesearch_user.php">Contact Us</a>
             </li>
 
             <li class="nav-item">
               <a class="nav-link" href="login.php">Admin</a>
             </li>   
           </ul>
-<!-- 
+
           <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">
             <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form> -->
+            <button class="btn btn-dark" type="submit">Search</button>
+          </form>
 
         </div>
       </nav>
     </header>
 
-    
+    <!DOCTYPE html>
+<html>
+<head>
+	<title>Contact Us</title>
+</head>
+<body>
+	
+<div class="searchusr" >
+    <h3>Contact Us</h3>
 
-    <!-- Carousel -->
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-      <div class="carousel-item active">
-      <img src="images/carousel/1.jpg" class="d-block w-100" alt="1.jpg">
-    </div>
-    <div class="carousel-item">
-      <img src="images/carousel/2.jpg" class="d-block w-100" alt="2.jpg">
-    </div>
-    <div class="carousel-item">
-      <img src="images/carousel/3.jpg" class="d-block w-100" alt="3.jpg">
-    </div>
+    <form>
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" class="form-control" id="name" placeholder="Enter your name">
   </div>
-    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" id="email" placeholder="Enter your email">
   </div>
-
-
-    <div id="container2">
-        <b><p>Welcome to Entertainment MB!</p></b>
-        <p>We are dedicated to providing you with the latest news and information about all things entertainment in Manitoba. Our focus is on movies and movie fans that movies are more than just entertainment, they are a reflection of our society and culture.</p>
-        <p>Our site is designed to be a one-stop-shop for all your movie needs. Whether you’re looking for reviews of the latest blockbusters or want to learn more about classic films, we’ve got you covered. We also provide information about upcoming movie events in Manitoba, so you’ll never miss out on the latest releases.</p>
-        <p>At Entertainment MB, we’re passionate about movies and we want to share that passion with you. So sit back, relax, and let us guide you through the wonderful world of cinema!</p>
-        <p>I hope this helps! Let me know if you have any other questions.</p>
-    </div>
-
-  <div id="lastmovies">
-    <h2><p>Lastest Movies</p></h2>
+  <div class="mb-3">
+    <label for="message" class="form-label">Mensage</label>
+    <textarea class="form-control" id="message" rows="3" placeholder="Write a message here"></textarea>
   </div>
+  <button type="submit" class="btn btn-primary">Send</button>
+</form>
 
-    <!-- Showing Content -->
-  <div id=shortpost> 
+</div>
 
-    <table class="table">
-      
-
-        <div class="row">
-        <?php 
-          $count = 0;
-          while ($row = $statement->fetch() and $count < 4): 
-          $count++;
-          ?>
-          <div class="col-md-3 mb-3">
-            <div class="card">
-              <img src="<?= "images/" . $row['movieImage']  ?>" class="card-img-top" alt="<?= $row['title'] ?>">
-              <div class="card-body">
-
-              
-                <h5 class="card-title"><a href="select.php?movieId=<?= $row['movieId']?>" ><?= $row['title'] ?> </a> </h5>
-                <p class="card-text"><?= $row['description'] ?></p>
-              
-              </div>
-            </div>
-          </div>
-        <?php endwhile; ?>
-      </div>                 
-          
-    </table>
-  </div>
-
-
-
+</body>
+</html>
   
     </div>
     </div>
@@ -193,9 +135,5 @@ $image = filter_input(INPUT_GET, 'movieImage', FILTER_SANITIZE_STRING);
 </footer>
 
 </html>
-
-
-
-
 
 
