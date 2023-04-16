@@ -236,7 +236,8 @@ if (isset($_FILES['movieImage'])) {
             </div>
 
 
-            <input type="submit" value="Submit" name="submit">
+            
+            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
         
         </form>
     </div> 

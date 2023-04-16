@@ -130,71 +130,85 @@ if (!isset($_GET['movieId'])) {
   <body>
     
   <header>
-        <div id="container1">
-            <h1>ENTERTAINMENTMB</h1>
-        </div>
-
+      <div id="container1">
+          <!-- <h1>ENTERTAINMENTMB</h1> -->
+          <img src="images/logo/logo3.png" alt="My Logo">
+      </div>
 
         <!-- Navigation menu -->
         
-        <nav class="navbar navbar-expand-lg navbar-dark">
-  <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+      <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#000000;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="moviesearch_user.php">Movies</a>
-      </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="login.php">Admin</a>
-      </li> -->
-      <li class="nav-item dropdown">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="aboutus.php">About</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="moviesearch_user.php">Movies</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="moviesearch_user.php">Contact Us</a>
+            </li>
+
+            <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="moviesearch.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          Admin
         </a>
 
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="moviepost.php">Movies</a>         
+          <a class="dropdown-item" href="moviepost.php">Movies</a>
+
+
+          
 
           <a class="dropdown-item" href="categorypost.php">Categories</a>
-         
-
           <div class="dropdown-divider"></div>
+          
           <a class="dropdown-item" href="moviesearch.php">Search</a>
         </div>
+        </div>
+
+        
       </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="True">Disabled</a>
-      </li>  -->
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
+     </ul>
+
+          <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">
+            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
+            <button class="btn btn-dark" type="submit">Search</button>
+          </form>
+
+        </div>
+      </nav>
     </header>
 
 
     <body>
+    <div class="searchusr">
     <div class="w-75 p-3">
-
-
 
         <div id="container1">
         
             <?php if (count($rows) > 0) { ?>
+
                 <!-- Movie details -->   
+                
                 <?php echo "<h3><p class=title>" . $rows[0]['title'] . " (" . $rows[0]['releaseYear'] . ")</a></h3>" ; ?>
                 <?php echo "<p><a class=edit href='" . "editmovie.php?movieId" . "=" . $movieId . "'" . ">" . "Edit" . "</a>" . "</p>"; ?>           
-                <?php echo "<p>" . $rows[0]['description'] . "</p>"; ?>
-                <?php echo "<img src=\"images/" . $rows[0]['movieImage'] . "\">"; ?>
+                <?php echo "<p>" . $rows[0]['description'] . "</p>"; ?>                
+
+            <?php if(!empty($rows[0]['movieImage'])){ ?>
+                <?php echo "<img src=\"images/" . $rows[0]['movieImage'] . "\">";
+                } ?> 
 
                 <!-- User comments -->
                 <div>
@@ -232,6 +246,7 @@ if (!isset($_GET['movieId'])) {
 
 </div>
 
+    </div>
     </div>
 </body>
     </html>

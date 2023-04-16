@@ -164,14 +164,20 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
       <!-- Sort results -->
 
 
-        <div class="searchusr">
+        <!-- <div class="searchusr"> -->
           <?php
-        foreach ($movies as $movie) {        
-        echo "<h3><p class=title><a class=edit href='" . "select.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . "(" . $movie['releaseYear'] . ")</a></h3>" ;
-        echo "<p>{$movie['description']}</p>";
-        echo "<img src=\"images/" . $movie['movieImage'] . "\">";
-       
-    }
+        foreach ($movies as $movie) { ?>
+          <div class="searchusr">
+          <?php
+          echo "<h3><p class=title><a class=edit href='" . "select.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . "(" . $movie['releaseYear'] . ")</a></h3>" ;
+          echo "<p>{$movie['description']}</p>" ;
+         
+          if(!empty($movie['movieImage'])){ 
+            echo "<img src=\"images/" . $movie['movieImage'] . "\">";
+            } ?>
+            </div>
+            <?php        
+      }
 ?>
 
 

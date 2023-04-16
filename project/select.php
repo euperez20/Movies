@@ -155,9 +155,10 @@ if (is_array($rows) && count($rows) > 0) {
             <h3><?php echo "<p>" . $rows[0]['releaseYear'] . "</p>"; ?> </h3>  
             <?php echo "<p>Directed by " . $rows[0]['director'] . "</p>"; ?>           
             <!-- movieID -->    
-               
-            <?php echo "<img src=\"images/" . $rows[0]['movieImage'] . "\">"; ?>
-
+            <?php if(!empty($rows[0]['movieImage'])){ ?>
+                <?php echo "<img src=\"images/" . $rows[0]['movieImage'] . "\">";
+                } ?>  
+            
             <div>
                 <h3><p>Review</p></h3>
             </div>
