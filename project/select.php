@@ -31,7 +31,7 @@ if (is_array($rows) && count($rows) > 0) {
     // Handle form submission.
     if ($_POST && !empty($_POST['review'])) {
         // Sanitize user inputs
-        $fullName = !empty($_POST['fullName']) ? filter_input(INPUT_POST, 'fullName', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : "anonymous";
+        $fullName = !empty($_POST['fullName']) ? filter_input(INPUT_POST, 'fullName', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : "Anonymous";
         $review = filter_input(INPUT_POST, 'review', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $movieId = filter_input(INPUT_POST, 'movieId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $query = "INSERT INTO review (fullName, review, movieId) VALUES (:fullName, :review, :movieId)";
@@ -60,7 +60,7 @@ if (is_array($rows) && count($rows) > 0) {
 
  if ($_POST && !empty($_POST['review'])) {
     // Sanitize user inputs
-    $fullName = !empty($_POST['fullName']) ? filter_input(INPUT_POST, 'fullName', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : "anonymous";
+    $fullName = !empty($_POST['fullName']) ? filter_input(INPUT_POST, 'fullName', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : "Anonymous";
     $review = filter_input(INPUT_POST, 'review', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $movieId = filter_input(INPUT_POST, 'movieId', FILTER_SANITIZE_NUMBER_INT);
     $query = "INSERT INTO review (fullName, review, movieId) VALUES (:fullName, :review, :movieId)";
@@ -189,13 +189,13 @@ if (is_array($rows) && count($rows) > 0) {
                 <input type="hidden" name="movieId" value="<?php echo $movieId; ?>">
 
                     <label for="fullName">Name:</label>
-                    <input type="text" id="fullName" name="fullName" required><br>
+                    <input type="text" id="fullName" name="fullName" ><br>
                    
-                    <input type="hidden" id="userId" name="userId" required><br>
+                    <input type="hidden" id="userId" name="userId" ><br>
 
                     <label for="review">Comment:</label>
                     <textarea id="review" name="review" required></textarea><br>
-                    <input type="submit" name="submit" value="Submit">
+                    <button class="btn btn-primary" type="submit" name="submit">Submit</button>
                 </form>
             </div>
 

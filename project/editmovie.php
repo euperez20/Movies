@@ -85,15 +85,11 @@ if(isset($_POST['submit'])) {
 
 // Delete post
 if (isset($_POST['delete'])) {
-
-
     $statement = $db->prepare("DELETE FROM movie WHERE movieId = :movieId");
-
     $statement->bindValue(':movieId', $_POST['movieId']);
-
     $statement->execute();
 
-    header('Location: index.php');
+    header('Location: moviesearch.php');
     exit;
 }
 
@@ -197,9 +193,7 @@ if (!$result){
 
         
       </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="True">Disabled</a>
-      </li>  -->
+
     </ul>
 
           <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">

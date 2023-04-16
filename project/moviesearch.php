@@ -142,7 +142,7 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
         <?php endforeach ?>
     </select>
 
-          <div class="searchsort">       
+          <div >       
             <label for="category">Sort by:</label>
             <input type="radio" id="sort-title" name="sort" value="title">
             <label for="sort-title">Title</label>
@@ -150,7 +150,7 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
             <label for="sort-director">Director</label>
             <input type="radio" id="sort-releaseYear" name="sort" value="releaseYear">
             <label for="sort-releaseYear">Release year</label>
-            <button type="submit">Search</button>
+            <button type="submit" class="btn btn-primary">Search</button>
         </div>
     <noscript><button class="submitselect" type="submit">Search</button></noscript>
 

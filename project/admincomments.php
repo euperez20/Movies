@@ -86,20 +86,22 @@ if (is_array($rows) && count($rows) > 0) {
 
 
 // Delete comment
-if (isset($_POST['delete'])) {
+
+if (isset($_GET['delete'])) {
   
   $stmt = $db->prepare("DELETE FROM review WHERE reviewId = :reviewId");
   $stmt->bindValue(':reviewId', $_POST['reviewId']);
   $stmt->execute();
 
   // Get the movie ID of the review that was just deleted
-  // $movieId = $_POST['movieId'];
-  $reviewId = $_POST['reviewId'];
+
+  $reviewId = $_GET['reviewId'];
 
   // Redirect back to the movie page
   header("Location: select.php?movieId=$movieId");
   exit;
 }
+
 
 // Check if the id of the post was passed in the URL
 
@@ -216,15 +218,19 @@ if (!isset($_GET['movieId'])) {
                 </div>
             <?php 
             foreach ($rows as $row) {
-                // echo "<p><b>" . $row['fullName'] . "</b></p>";
+               
                 echo '<p><b>' . $row['fullName'] . ' on ' . date('F j, Y', strtotime($row['dateReview'])) . '</b></p>';
-                echo "<p>" . $row['review'] . "</p>";
-                // echo "<p>" . "<a class=admincomments href='" . "admincomments.php?movieId" . "=" . $row['movieId'] . "'" . ">" . "Admin Comments" . "</a>" . "</p>" . "<br>"; 
-                
+                echo "<p>" . $row['review'] . "</p>";                
                 echo "<p>" . $row['reviewId'] . "</p>";
-                // echo "<p>" . "<a class=admincomments href='" . "admincomments.php?movieId" . "=" . $row['movieId'] . "'" . ">" . "Delete Comment" . "</a>" . "</p>" . "<br>"; 
+               
+                echo "<p><a href='" . "deletecomments.php?movieId" . "=" . $movieId . "&delete". $row['reviewId'] . "'" . ">" . "Delete Comment" . "</a>" . "</p>"; 
+
                 ?>
-                <input type="submit" name="delete" value="Delete">
+
+                
+                <!-- <label><a href="select.php?movieId=1&delete=5">Borrar comentario</a></label>; -->
+
+                <button type="submit" name="delete">delete</button>
                 <!-- <button type="submit" onclick="return confirm('Are you sure you want to delete this comment?');">Delete</button> -->
                 <?php
                 
