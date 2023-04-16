@@ -8,8 +8,6 @@
 
 ****************/
 require 'connect.php';
-// require('authenticate.php');
-
 
 $query_categories = "SELECT * FROM category";
 $statement_categories = $db->prepare($query_categories);
@@ -133,12 +131,6 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
       </nav>
     </header>
 
-
-    <!-- <div>
-        <form action="logout.php" method="post">
-        <button type="submit" name="logout">Logout</button>
-        </form>
-    </div> -->
 
     <form class="form-no-border" method="GET" action="moviesearch_user.php">
     <h3><p>Movie Collection</p></h3>

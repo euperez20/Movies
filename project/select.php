@@ -97,21 +97,20 @@ if (is_array($rows) && count($rows) > 0) {
 
     <title>Welcome to ENTERTAINMENTMB</title>
   </head>
+  
   <body>
-<!-- 
-<div class="col">
-  <h1>test</h1>
-</div> -->
+  
   <div class="w-75_p-3">
     
   <header>
       <div id="container1">
-          <h1>ENTERTAINMENTMB</h1>
+          <!-- <h1>ENTERTAINMENTMB</h1> -->
+          <img src="images/logo/logo3.png" alt="My Logo">
       </div>
 
         <!-- Navigation menu -->
         
-      <nav class="navbar navbar-expand-lg navbar-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#000000;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -121,9 +120,19 @@ if (is_array($rows) && count($rows) > 0) {
             <li class="nav-item active">
               <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
             </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="aboutus.php">About</a>
+            </li>
+
             <li class="nav-item">
               <a class="nav-link" href="moviesearch_user.php">Movies</a>
             </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="moviesearch_user.php">Contact Us</a>
+            </li>
+
             <li class="nav-item">
               <a class="nav-link" href="login.php">Admin</a>
             </li>   
@@ -131,13 +140,13 @@ if (is_array($rows) && count($rows) > 0) {
 
           <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">
             <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <button class="btn btn-dark" type="submit">Search</button>
           </form>
 
         </div>
       </nav>
     </header>
-    
+    <div class="searchusr" >
     <div id="container1">
         
         <?php if (count($rows) > 0) { ?>
@@ -191,6 +200,7 @@ if (is_array($rows) && count($rows) > 0) {
 
     </div>
     </div>  
+    </div>
 </body>
     </html>
 

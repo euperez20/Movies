@@ -37,10 +37,7 @@ $image = filter_input(INPUT_GET, 'movieImage', FILTER_SANITIZE_STRING);
     <title>Welcome to ENTERTAINMENTMB</title>
   </head>
   <body>
-<!-- 
-<div class="col">
-  <h1>test</h1>
-</div> -->
+
   <div class="w-75_p-3-new">
     
     <header>
@@ -78,17 +75,10 @@ $image = filter_input(INPUT_GET, 'movieImage', FILTER_SANITIZE_STRING);
               <a class="nav-link" href="login.php">Admin</a>
             </li>   
           </ul>
-<!-- 
-          <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">
-            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form> -->
 
         </div>
       </nav>
-    </header>
-
-    
+    </header>    
 
     <!-- Carousel -->
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
