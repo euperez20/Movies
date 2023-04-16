@@ -132,7 +132,7 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
     </header>
 
 
-    <form class="form-no-border" method="GET" action="moviesearch_user.php">
+    <form class="form-no-border" method="GET" action="moviesearch.php">
     <h3><p>Movie Collection</p></h3>
     <label for="category">Filter by category:</label>
     <select name="category" id="category" onchange="this.form.submit()">
@@ -169,7 +169,7 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
         foreach ($movies as $movie) { ?>
           <div class="searchusr">
           <?php
-          echo "<h3><p class=title><a class=edit href='" . "select.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . "(" . $movie['releaseYear'] . ")</a></h3>" ;
+          echo "<h3><p class=title><a class=edit href='" . "admincomments.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . "(" . $movie['releaseYear'] . ")</a></h3>" ;
           echo "<p>{$movie['description']}</p>" ;
          
           if(!empty($movie['movieImage'])){ 
@@ -193,22 +193,11 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
       });
     </script>
 
-
     </div>
     </div>
 
   </form>
-    <?php
-
-    // Display the movie results
-    foreach ($movies as $movie) {        
-        echo "<h3><p class=title><a class=edit href='" . "admincomments.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . "(" . $movie['releaseYear'] . ")</a></h3>" ;
-        // echo "<p>" . "<a class=edit href='" . "select.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . "View Details" . "</a>" . "</p>" . "<br>";
-        echo "<p>{$movie['description']}</p>";
-        echo "<img src=\"images/" . $movie['movieImage'] . "\">"; 
-        
-    }
-    ?>
+   
 
 
 <!-- Optional JavaScript -->
@@ -220,4 +209,30 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
 
   </div>
 </body>
+
+
+<footer class="bg-dark text-light py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <h5>About Us</h5>
+        <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
+      </div>
+      <div class="col-md-4 mb-3">
+        <h5>Contact Us</h5>
+        <p>Email: info@entertainmentmb.ca</p>
+        <p>Phone: 431-555-5555</p>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h5>Follow Us</h5>
+        <ul class="list-unstyled">
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
 </html>
