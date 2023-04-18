@@ -117,9 +117,7 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         
       </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="True">Disabled</a>
-      </li>  -->
+
     </ul>
 
           <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">

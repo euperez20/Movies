@@ -19,35 +19,86 @@ $category = filter_input(INPUT_GET, 'category', FILTER_SANITIZE_STRING);
 
 // Get radio button value
 $sort = filter_input(INPUT_GET, 'sort', FILTER_SANITIZE_STRING);
+// Get search value
+$search = filter_input(INPUT_GET, 'search1', FILTER_SANITIZE_STRING);
+// Get search value
+$search = filter_input(INPUT_GET, 'q', FILTER_SANITIZE_STRING);
 
 // Query
 if (!empty($category)) {
     $query = "SELECT m.movieId, m.title, m.releaseYear, m.description, m.movieImage, c.categoryId, c.name 
               FROM movie m LEFT JOIN category c ON m.categoryId = c.categoryId 
-              WHERE c.categoryId = :category";
-
-    // OrderBy
-    switch ($sort) {
-        case 'title':
-            $query .= " ORDER BY m.title";
-            break;
-        case 'director':
-            $query .= " ORDER BY m.director";
-            break;
-        case 'releaseYear':
-            $query .= " ORDER BY m.releaseYear";
-            break;
-    }
+              WHERE c.categoryId = :category ";
 
     $statement = $db->prepare($query);
     $statement->bindValue(':category', $category);
+  
 } else {
-    $query = "SELECT * FROM movie";
+    $query = "SELECT * FROM movie";    
     $statement = $db->prepare($query);
+
 }
 
 $statement->execute();
 $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+//paging
+
+// Obtener el número de página actual
+$page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT);
+if (empty($page)) {
+    $page = 1;
+}
+
+// Obtener la cantidad total de registros
+if (!empty($category)) {
+    $query_count = "SELECT COUNT(*) FROM movie m LEFT JOIN category c ON m.categoryId = c.categoryId WHERE c.categoryId = :category";
+    $statement_count = $db->prepare($query_count);
+    $statement_count->bindValue(':category', $category);
+} else {
+    $query_count = "SELECT COUNT(*) FROM movie";
+    $statement_count = $db->prepare($query_count);
+}
+
+$statement_count->execute();
+$total = $statement_count->fetchColumn();
+
+// Calcular la cantidad de páginas
+$per_page = 2;
+$total_pages = ceil($total / $per_page);
+
+// Calcular el índice inicial del registro para la página actual
+$start_index = ($page - 1) * $per_page;
+
+// Obtener los registros para la página actual
+if (!empty($category)) {
+    $query = "SELECT m.movieId, m.title, m.releaseYear, m.description, m.movieImage, c.categoryId, c.name 
+              FROM movie m LEFT JOIN category c ON m.categoryId = c.categoryId 
+              WHERE c.categoryId = :category 
+              ORDER BY m.title";
+
+    $query .= " LIMIT :per_page OFFSET :start_index";
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':category', $category);
+    $statement->bindValue(':per_page', $per_page, PDO::PARAM_INT);
+    $statement->bindValue(':start_index', $start_index, PDO::PARAM_INT);
+} else {
+    $query = "SELECT * FROM movie";
+    $query .= " ORDER BY title";
+    $query .= " LIMIT :per_page OFFSET :start_index";
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':per_page', $per_page, PDO::PARAM_INT);
+    $statement->bindValue(':start_index', $start_index, PDO::PARAM_INT);
+}
+
+$statement->execute();
+$movies = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+
 
 ?>
 
@@ -126,7 +177,17 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
             <option value="<?= $category['categoryId'] ?>"<?= isset($_GET['category']) && $_GET['category'] == $category['categoryId'] ? ' selected' : '' ?>><?= $category['name'] ?></option>
         <?php endforeach ?>
     </select>
+
+
+
     <noscript><button class="submitselect" type="submit">Search</button></noscript>
+
+
+    <!-- Mostrar los enlaces de paginación -->
+
+
+
+
 
     <?php if (isset($_GET['category'])): ?>
     <?php if (empty($movies)): ?>
@@ -161,6 +222,24 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
       });
     </script>
 
+
+<div class="pagination">
+    <?php if ($page > 1) : ?>
+        <a href="?page=<?php echo ($page - 1); ?>">Anterior</a>
+    <?php endif; ?>
+ 
+    <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+        <?php if ($i == $page) : ?>
+            <span class="current-page"><?php echo $i; ?></span>
+        <?php else : ?>
+            <a href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+        <?php endif; ?>
+    <?php endfor; ?>
+ 
+    <?php if ($page < $total_pages) : ?>
+        <a href="?page=<?php echo ($page + 1); ?>">Siguiente</a>
+    <?php endif; ?>
+</div>
 
     </div>
     </div>

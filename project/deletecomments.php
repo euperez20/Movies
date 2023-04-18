@@ -7,20 +7,34 @@
     Description: Module to delete comments in each movie.
 
 ****************/
+
 require('connect.php');
 
-// Elimina un comentario de la base de datos
 
 
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
-    $query = "DELETE FROM review WHERE reviewId = :reviewId";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':reviewId', $delete, PDO::PARAM_INT);
-    $statement->execute();
-  
-    // Imprimir mensaje de confirmación
-    echo "The review has been Removed.";
-  }
+// Obtener el ID del comentario a eliminar
+
+$reviewId = $_GET['reviewId'];
+
+
+
+
+// Eliminar el comentario de la base de datos
+
+$query = "DELETE FROM review WHERE reviewId='$reviewId'";
+
+$statement = $db->prepare($query);
+
+
+
+
+// Redirigir de vuelta a la página de moderación de comentarios
+
+header('Location: comments.php');
+
+
+
+
+
   
 ?>
