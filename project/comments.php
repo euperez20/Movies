@@ -14,7 +14,7 @@ require('connect.php');
 if (isset($_GET['delete_comment_id'])) {
     $delete_comment_id = $_GET['delete_comment_id'];
 
-    var_dump($delete_comment_id);
+    // var_dump($delete_comment_id);
 
     $query = "DELETE FROM review WHERE reviewId = :reviewId";
     $statement = $db->prepare($query);
@@ -24,49 +24,60 @@ if (isset($_GET['delete_comment_id'])) {
     echo "Comment has been Removed Successfully.";
 }
 
-// Query for getting reviews
-$query = "SELECT review.*, movie.*, category.* FROM review INNER JOIN movie ON review.movieId = movie.movieId INNER JOIN category ON movie.categoryId = category.categoryId";
+// Obtiene los comentarios de la base de datos
+$query = "SELECT * FROM review";
+$statement = $db->prepare($query);
+$statement->execute();
+$comments = $statement->fetchAll();
 
+// Obtiene los comentarios y la información de la categoría de la publicación correspondiente
+$query = "SELECT review.*, category.name FROM review INNER JOIN movie ON review.movieId = movie.movieId INNER JOIN category ON movie.categoryId = category.categoryId";
 if (isset($_GET['categoryId'])) {
-  $query .= " WHERE movie.categoryId = :categoryId";
+  $query .= " WHERE movie.categoryId = :category";
+
 }
 
 $statement = $db->prepare($query);
-
 if (isset($_GET['categoryId'])) {
-  $statement->bindValue(':categoryId', $_GET['categoryId'], PDO::PARAM_INT);
-  $statement->bindValue(':name', $_GET['name'], PDO::PARAM_INT);
+  $statement->bindValue(':category', $_GET['categoryId'], PDO::PARAM_INT);
+
 }
 
 $statement->execute();
-
 $comments = $statement->fetchAll();
 
-// Query category
+// Obtiene las categorías
 $query = "SELECT * FROM category";
 $statement = $db->prepare($query);
 $statement->execute();
-$categories = $statement->fetchAll();
 
+$categories = $statement->fetchAll(); 
+
+if(isset($_POST['category'])) {
+$selected_category_id = $_GET['category']?? null;
+
+if(isset($movieId)) {
+  if ($selected_category_id) {
+   $query = "SELECT * FROM review WHERE movieId = $movieId";
+
+} else {
+  $query = "SELECT * FROM review WHERE movieId = $movieId";
+
+}}}
+
+// Definir la variable $selected_category_id con un valor por defecto
 $selected_category_id = 0;
 
 // Verificar si se ha enviado un formulario y actualizar $selected_category_id
 if (isset($_POST['categoryId'])) {
-  $selected_category_id = $_POST['categoryId'] ?? null;
-  if(isset($post_id)) {
-
-    if ($selected_category_id) {
-    
-    $query = "SELECT * FROM review WHERE movieId = $movieId AND categoryId = $selected_category_id";
-    
-    } else {
-    
-    $query = "SELECT * FROM review WHERE movieId = $movieId";
-
-if(isset($_POST['categoryId'])) {
   $selected_category_id = $_POST['categoryId'];
-}
-    }}}
+  $statement->execute();
+  
+  }
+
+
+
+
 
 ?>
 

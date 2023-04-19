@@ -205,7 +205,9 @@ if (!isset($_GET['movieId'])) {
                 <!-- Movie details -->   
                 
                 <?php echo "<h3><p class=title>" . $rows[0]['title'] . " (" . $rows[0]['releaseYear'] . ")</a></h3>" ; ?>
-                <?php echo "<p><a class=edit href='" . "editmovie.php?movieId" . "=" . $movieId . "'" . ">" . "Edit" . "</a>" . "</p>"; ?>           
+                <?php echo "<p><a class=edit href='" . "editmovie.php?movieId" . "=" . $movieId . "'" . ">" . "Edit" . "</a>" . "</p>"; ?>
+                
+                <?php echo "<p><a class=edit href='" . "comments.php?movieId" . "=" . $movieId . "'" . ">" . "Admin Comments" . "</a>" . "</p>"; ?>      
                 <?php echo "<p>" . $rows[0]['description'] . "</p>"; ?>                
 
             <?php if(!empty($rows[0]['movieImage'])){ ?>
@@ -221,17 +223,13 @@ if (!isset($_GET['movieId'])) {
                
                 echo '<p><b>' . $row['fullName'] . ' on ' . date('F j, Y', strtotime($row['dateReview'])) . '</b></p>';
                 echo "<p>" . $row['review'] . "</p>";                
-                echo "<p>" . $row['reviewId'] . "</p>";
-               
-                echo "<p><a href='" . "deletecomments.php?movieId" . "=" . $movieId . "&delete". $row['reviewId'] . "'" . ">" . "Delete Comment" . "</a>" . "</p>"; 
-
+                
                 ?>
 
                 
-                <!-- <label><a href="select.php?movieId=1&delete=5">Borrar comentario</a></label>; -->
 
-                <button type="submit" name="delete">delete</button>
-                <!-- <button type="submit" onclick="return confirm('Are you sure you want to delete this comment?');">Delete</button> -->
+
+               
                 <?php
                 
             }
