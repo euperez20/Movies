@@ -30,7 +30,9 @@ $statement = $db->prepare($query);
 
 // Redirigir de vuelta a la página de moderación de comentarios
 
-header('Location: comments.php');
+// header('Location: comments.php?movieId=64');
+
+header("comments.php?movieId=" . $movieId);
 
 
 

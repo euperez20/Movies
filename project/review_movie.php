@@ -12,7 +12,9 @@ require('connect.php');
 
 // Delete comments
 if (isset($_GET['delete_comment_id'])) {
-    $delete_comment_id = $_GET['delete_comment_id'];  
+    $delete_comment_id = $_GET['delete_comment_id'];
+
+    // var_dump($delete_comment_id);
 
     $query = "DELETE FROM review WHERE reviewId = :reviewId";
     $statement = $db->prepare($query);
@@ -20,7 +22,6 @@ if (isset($_GET['delete_comment_id'])) {
     $statement->execute();
 
     echo "Comment has been Removed Successfully.";
-
 }
 
 // Obtiene los comentarios de la base de datos
@@ -29,50 +30,55 @@ $statement = $db->prepare($query);
 $statement->execute();
 $comments = $statement->fetchAll();
 
-// Obtiene los comentarios 
-$query = "SELECT review.* FROM review INNER JOIN movie ON review.movieId = movie.movieId ";
+// Obtiene los comentarios y la información de la categoría de la publicación correspondiente
+$query = "SELECT review.*, category.name FROM review INNER JOIN movie ON review.movieId = movie.movieId INNER JOIN category ON movie.categoryId = category.categoryId";
+if (isset($_GET['categoryId'])) {
+  $query .= " WHERE movie.categoryId = :category";
 
+}
+
+$statement = $db->prepare($query);
+if (isset($_GET['categoryId'])) {
+  $statement->bindValue(':category', $_GET['categoryId'], PDO::PARAM_INT);
+
+}
+
+$statement->execute();
+$comments = $statement->fetchAll();
+
+// Obtiene las categorías
+$query = "SELECT * FROM category";
+$statement = $db->prepare($query);
+$statement->execute();
+
+$categories = $statement->fetchAll(); 
+
+if(isset($_POST['category'])) {
+$selected_category_id = $_GET['category']?? null;
 
 if(isset($movieId)) {
   if ($selected_category_id) {
    $query = "SELECT * FROM review WHERE movieId = $movieId";
 
- }
-}
+} else {
+  $query = "SELECT * FROM review WHERE movieId = $movieId";
+
+}}}
 
 // Definir la variable $selected_category_id con un valor por defecto
 $selected_category_id = 0;
 
-
-// Build and prepare SQL String with :id placeholder parameter.
-$query = "SELECT m.*, r.* FROM movie m LEFT JOIN review r ON m.movieId = r.movieId WHERE m.movieId = :movieId ORDER BY r.dateReview DESC";
-$statement = $db->prepare($query);
-
-// Sanitize $_GET['movieId'] to ensure it's a number.
-$movieId = filter_input(INPUT_GET, 'movieId', FILTER_SANITIZE_NUMBER_INT);
-$statement->bindValue('movieId', $movieId, PDO::PARAM_INT);
-
-$statement->execute();
-
-// Fetch the rows selected by the movie ID.
-$rows = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-// Check if rows are found.
-if (is_array($rows) && count($rows) > 0) {
-    // Get the title from the first row.
-    $title = $rows[0]['title'];
-
-    // Handle form submission.
-    if ($_POST && !empty($_POST['review'])) {
-        // Sanitize user inputs
-        $fullName = !empty($_POST['fullName']) ? filter_input(INPUT_POST, 'fullName', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : "Anonymous";
-        $review = filter_input(INPUT_POST, 'review', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $movieId = filter_input(INPUT_POST, 'movieId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+// Verificar si se ha enviado un formulario y actualizar $selected_category_id
+if (isset($_POST['categoryId'])) {
+  $selected_category_id = $_POST['categoryId'];
+  $statement->execute();
+  
+  }
 
 
-        exit;
-    }
-}
+
+
+
 ?>
 
 
@@ -163,6 +169,21 @@ if (is_array($rows) && count($rows) > 0) {
 
         <!-- Result reviews -->
         
+        <form method="get" action="comments.php">
+  <div class="form-group">
+    <label for="category">Filter by Category:</label>
+    <select class="form-control" id="category" name="category">
+      <option value="">All</option>
+      <?php foreach ($categories as $category): ?>
+        <option value="<?= $category['categoryId'] ?>"<?= $category['categoryId'] == $selected_category_id ? ' selected' : '' ?>><?= $category['name'] ?></option>
+       
+        </option>
+      <?php endforeach ?>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+
 
 <div class="container">
 
@@ -174,32 +195,28 @@ if (is_array($rows) && count($rows) > 0) {
                 <th class="text-center" scope="col">User</th>
                 <th class="text-center" scope="col">Review</th>
                 <th class="text-center" scope="col">Id Movie</th>
-                <!-- <th class="text-center" scope="col">Category</th> -->
+                <th class="text-center" scope="col">Category</th>
                 <th class="text-center" scope="col">Action</th>
 
             </tr>
         </thead>
         <tbody class="table-group-divider">
-            <?php foreach ($rows as $row): ?>
+            <?php foreach ($comments as $comment): ?>
                 <tr>
 
-                    <td><?= $row['fullName'] ?></td>
-                    <td><?= $row['review'] ?></td>
-                    <td><?= $row['movieId'] ?></td>
-                    <!-- <td><?= $comment['name'] ?></td> -->
+                    <td><?= $comment['fullName'] ?></td>
+                    <td><?= $comment['review'] ?></td>
+                    <td><?= $comment['movieId'] ?></td>
+                    <td><?= $comment['name'] ?></td>
                     <td>
-                
-    
-                    <!-- <a href="comments.php?delete_comment_id=<?= $row['reviewId'] ?>"onclick="return confirm('Are you sure you want to delete this comment?')">Delete</a> -->
-
-                    <a href="comments.php?movieId=<?= $row['movieId'] ?>&delete_comment_id=<?= $row['reviewId'] ?>" onclick="return confirm('Are you sure you want to delete this comment?')">Delete</a> /
-                        <a href=".php?delete_comment_id=<?= $row['review'] ?>"onclick="return confirm('Are you sure you want to hidden this comment?')">Hidden</a>
+                        <a href="comments.php?delete_comment_id=<?= $comment['reviewId'] ?>"onclick="return confirm('Are you sure you want to delete this comment?')">Delete</a> /
+                        <a href=".php?delete_comment_id=<?= $comment['review'] ?>"onclick="return confirm('Are you sure you want to hidden this comment?')">Hidden</a>
                     </td>
                 </tr>
             <?php endforeach ?>
         </tbody>
     </table>
-    <p><a href="moviesearch.php">Back to Admin Panel</a></p>  
+    <p><a href="admin.php">Back to Admin Panel</a></p>
 
 </div>
 
@@ -216,12 +233,12 @@ if (is_array($rows) && count($rows) > 0) {
 
 
 <!-- Filter Category script -->
-<!-- <script>
+<script>
       const categorySelect = document.getElementById('category');
       categorySelect.addEventListener('change', function() {
       document.getElementById('movie-search-form').submit();
       });
-    </script> -->
+    </script>
 
 
 </body>
