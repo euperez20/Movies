@@ -13,117 +13,63 @@ require('connect.php');
 // Delete comments
 if (isset($_GET['delete_comment_id'])) {
     $delete_comment_id = $_GET['delete_comment_id'];
+
+    var_dump($delete_comment_id);
+
     $query = "DELETE FROM review WHERE reviewId = :reviewId";
     $statement = $db->prepare($query);
     $statement->bindValue(':reviewId', $delete_comment_id, PDO::PARAM_INT);
     $statement->execute();
 
-   echo "Comment has been Removed Successfully.";
+    echo "Comment has been Removed Successfully.";
 }
 
- // Query for getting reviews
- $query = "SELECT * FROM review";
- $statement = $db->prepare($query);
- $statement->execute();
- $comments = $statement->fetchAll();
+// Query for getting reviews
+$query = "SELECT review.*, movie.*, category.* FROM review INNER JOIN movie ON review.movieId = movie.movieId INNER JOIN category ON movie.categoryId = category.categoryId";
 
-  // Obtiene los comentarios y la información de la categoría de la publicación correspondiente
-$query = "SELECT review.*, category.name FROM review INNER JOIN movie ON review.movieId = movie.movieId INNER JOIN category ON movie.categoryId = category.categoryId";
+if (isset($_GET['categoryId'])) {
+  $query .= " WHERE movie.categoryId = :categoryId";
+}
 
-// $query = "SELECT m.*, r.* FROM movie m LEFT JOIN review r ON m.movieId = r.movieId ORDER BY m.movieId ASC";
-  if (isset($_GET['categoryId'])) {
-      $query .= " WHERE review.categoryId = :categoryId";
- }
- $statement = $db->prepare($query);
- if (isset($_GET['category'])) {
-     $statement->bindValue(':category', $_GET['category'], PDO::PARAM_INT);
- }
- $statement->execute();
- $comments = $statement->fetchAll();
+$statement = $db->prepare($query);
 
+if (isset($_GET['categoryId'])) {
+  $statement->bindValue(':categoryId', $_GET['categoryId'], PDO::PARAM_INT);
+  $statement->bindValue(':name', $_GET['name'], PDO::PARAM_INT);
+}
 
- // Query category
+$statement->execute();
+
+$comments = $statement->fetchAll();
+
+// Query category
 $query = "SELECT * FROM category";
 $statement = $db->prepare($query);
 $statement->execute();
-$categories = $statement->fetchAll();  
-
-if(isset($_POST['category'])) {
-$selected_category_id = $_GET['category']?? null;
-
-if(isset($movieId)) {
-if ($selected_category_id) {
-    $query = "SELECT * FROM review WHERE movieId = $movieId AND category_id = $selected_category_id";
-} else {
-    $query = "SELECT * FROM review WHERE movieId = $movieId";
-}
-}
-}
+$categories = $statement->fetchAll();
 
 $selected_category_id = 0;
 
 // Verificar si se ha enviado un formulario y actualizar $selected_category_id
 if (isset($_POST['categoryId'])) {
+  $selected_category_id = $_POST['categoryId'] ?? null;
+  if(isset($post_id)) {
+
+    if ($selected_category_id) {
+    
+    $query = "SELECT * FROM review WHERE movieId = $movieId AND categoryId = $selected_category_id";
+    
+    } else {
+    
+    $query = "SELECT * FROM review WHERE movieId = $movieId";
+
+if(isset($_POST['categoryId'])) {
   $selected_category_id = $_POST['categoryId'];
-  $statement->execute();
 }
-
-
-// // Build and prepare SQL String.
-// $query = "SELECT m.*, r.* FROM movie m LEFT JOIN review r ON m.movieId = r.movieId ORDER BY m.movieId ASC";
-// $statement = $db->prepare($query);
-
-// $statement->execute();
-
-// // Fetch the rows selected by the movie ID.
-// $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-// // Check if rows are found.
-// if (is_array($rows) && count($rows) > 0) {
-//     // Initialize variables for tracking current movie
-//     $currentMovieId = null;
-//     $currentMovieTitle = null;
-//     $reviews = array();
-
-//     // Loop through all rows
-//     foreach($rows as $row) {
-//         // Check if the current row is for a different movie
-//         if($row['movieId'] != $currentMovieId) {
-//             // If so, display all the reviews for the previous movie
-//             if(!empty($currentMovieId)) {
-//                 echo "<h3>$currentMovieTitle Reviews</h3>";
-//                 if(count($reviews) > 0) {
-//                     echo "<ul>";
-//                     foreach($reviews as $review) {
-//                         echo "<li>$review</li>";
-//                     }
-//                     echo "</ul>";
-//                 }
-//                 $reviews = array();
-//             }
-
-//             // Set the current movie to the new movie
-//             $currentMovieId = $row['movieId'];
-//             $currentMovieTitle = $row['title'];
-//         }
-
-//         // Add the current review to the reviews array
-//         $review = $row['fullName'] . ": " . $row['review'];
-//         array_push($reviews, $review);
-//     }
-
-//     // Display the last movie's reviews
-//     echo "<h3>$currentMovieTitle Reviews</h3>";
-//     if(count($reviews) > 0) {
-//         echo "<ul>";
-//         foreach($reviews as $review) {
-//             echo "<li>$review</li>";
-//         }
-//         echo "</ul>";
-//     }
-// }
+    }}}
 
 ?>
+
 
 <!-- bootstrap -->
 <!doctype html>
@@ -212,37 +158,41 @@ if (isset($_POST['categoryId'])) {
 
         <!-- Result reviews -->
         
-        <div>
-     <form action="comments.php" method="get">
-                <label for="category">Filter by Brand:</label>
-                <select name="category" id="category">
-                    <option value="">All categories</option>
-                    <?php foreach ($categories as $category): ?>
-                        <option value="<?= $category['categoryId'] ?>"<?= $category['categoryId'] == $selected_category_id ? ' selected' : '' ?>><?= $category['name'] ?></option>
-                    <?php endforeach ?>
-                </select>
-                <button type="submit">Filter</button>
-            </form>
-     </div>
+        <form method="get" action="comments.php">
+  <div class="form-group">
+    <label for="category">Filter by Category:</label>
+    <select class="form-control" id="category" name="category">
+      <option value="">All</option>
+      <?php foreach ($categories as $category): ?>
+        <option value="<?= $category['categoryId'] ?>"<?= $category['categoryId'] == $selected_category_id ? ' selected' : '' ?>><?= $category['name'] ?></option>
+       
+        </option>
+      <?php endforeach ?>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+
 
 <div class="container">
 
-    <h1>Moderate Comments</h1>
+    <h1>Reviews Admin</h1>
 
-    <table>
-        <thead>
+    <table class="table">
+        <thead >
             <tr>
-                <th>Title</th>
-                <th>review</th>
-                <th>Movie Id</th>
-                <th>Category</th>
-                <th>Action</th>
+                <th class="text-center" scope="col">User</th>
+                <th class="text-center" scope="col">Review</th>
+                <th class="text-center" scope="col">Id Movie</th>
+                <th class="text-center" scope="col">Category</th>
+                <th class="text-center" scope="col">Action</th>
 
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
             <?php foreach ($comments as $comment): ?>
                 <tr>
+
                     <td><?= $comment['fullName'] ?></td>
                     <td><?= $comment['review'] ?></td>
                     <td><?= $comment['movieId'] ?></td>
@@ -269,6 +219,17 @@ if (isset($_POST['categoryId'])) {
 
     </div>
     </div>
+
+
+<!-- Filter Category script -->
+<script>
+      const categorySelect = document.getElementById('category');
+      categorySelect.addEventListener('change', function() {
+      document.getElementById('movie-search-form').submit();
+      });
+    </script>
+
+
 </body>
     </html>
 
