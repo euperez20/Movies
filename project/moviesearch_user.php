@@ -17,12 +17,7 @@ $categories = $statement_categories->fetchAll(PDO::FETCH_ASSOC);
 // Get selected category
 $category = filter_input(INPUT_GET, 'category', FILTER_SANITIZE_STRING);
 
-// Get radio button value
-$sort = filter_input(INPUT_GET, 'sort', FILTER_SANITIZE_STRING);
-// Get search value
-$search = filter_input(INPUT_GET, 'search1', FILTER_SANITIZE_STRING);
-// Get search value
-$search = filter_input(INPUT_GET, 'q', FILTER_SANITIZE_STRING);
+
 
 // Query
 if (!empty($category)) {
@@ -34,7 +29,10 @@ if (!empty($category)) {
     $statement->bindValue(':category', $category);
   
 } else {
-    $query = "SELECT * FROM movie";    
+    // $query = "SELECT * FROM movie"; 
+    
+    $query = "SELECT m.movieId, m.title, m.releaseYear, m.description, m.movieImage, c.categoryId, c.name 
+              FROM movie m LEFT JOIN category c ON m.categoryId = c.categoryId";
     $statement = $db->prepare($query);
 
 }
@@ -42,13 +40,9 @@ if (!empty($category)) {
 $statement->execute();
 $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-//paging
 
-// Obtener el número de página actual
-$page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT);
-if (empty($page)) {
-    $page = 1;
-}
+
+
 
 // Obtener la cantidad total de registros
 if (!empty($category)) {
@@ -60,45 +54,14 @@ if (!empty($category)) {
     $statement_count = $db->prepare($query_count);
 }
 
+// Obtener la cantidad total de registros
+// $query_count = "SELECT COUNT(*) FROM movie";
+// $statement_count = $db->prepare($query_count);
+// $statement_count->execute();
+// $total = $statement_count->fetchColumn();
+
 $statement_count->execute();
 $total = $statement_count->fetchColumn();
-
-// Calcular la cantidad de páginas
-$per_page = 2;
-$total_pages = ceil($total / $per_page);
-
-// Calcular el índice inicial del registro para la página actual
-$start_index = ($page - 1) * $per_page;
-
-// Obtener los registros para la página actual
-if (!empty($category)) {
-    $query = "SELECT m.movieId, m.title, m.releaseYear, m.description, m.movieImage, c.categoryId, c.name 
-              FROM movie m LEFT JOIN category c ON m.categoryId = c.categoryId 
-              WHERE c.categoryId = :category 
-              ORDER BY m.title";
-
-    $query .= " LIMIT :per_page OFFSET :start_index";
-
-    $statement = $db->prepare($query);
-    $statement->bindValue(':category', $category);
-    $statement->bindValue(':per_page', $per_page, PDO::PARAM_INT);
-    $statement->bindValue(':start_index', $start_index, PDO::PARAM_INT);
-} else {
-    $query = "SELECT * FROM movie";
-    $query .= " ORDER BY title";
-    $query .= " LIMIT :per_page OFFSET :start_index";
-
-    $statement = $db->prepare($query);
-    $statement->bindValue(':per_page', $per_page, PDO::PARAM_INT);
-    $statement->bindValue(':start_index', $start_index, PDO::PARAM_INT);
-}
-
-$statement->execute();
-$movies = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-
-
-
 
 ?>
 
@@ -223,24 +186,6 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
     </script>
 
 
-<div class="pagination">
-    <?php if ($page > 1) : ?>
-        <a href="?page=<?php echo ($page - 1); ?>">Anterior</a>
-    <?php endif; ?>
- 
-    <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
-        <?php if ($i == $page) : ?>
-            <span class="current-page"><?php echo $i; ?></span>
-        <?php else : ?>
-            <a href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-        <?php endif; ?>
-    <?php endfor; ?>
- 
-    <?php if ($page < $total_pages) : ?>
-        <a href="?page=<?php echo ($page + 1); ?>">Siguiente</a>
-    <?php endif; ?>
-</div>
-
     </div>
     </div>
 
@@ -257,27 +202,30 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
 </body>
 
 <footer class="bg-dark text-light py-4">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 mb-3">
-        <h5>About Us</h5>
-        <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
-      </div>
-      <div class="col-md-4 mb-3">
-        <h5>Contact Us</h5>
-        <p>Email: info@entertainmentmb.ca</p>
-        <p>Phone: 431-555-5555</p>
-      </div>
-      <div class="col-md-4 mb-3">
-        <h5>Follow Us</h5>
-        <ul class="list-unstyled">
-          <li><a href="#">Facebook</a></li>
-          <li><a href="#">Twitter</a></li>
-          <li><a href="#">Instagram</a></li>
-        </ul>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5><a href="aboutus.php"> About us</a></h5>
+          <h5><a href="moviesearch_user.php"> Search</a></h5>
+          <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Contact</h5>
+          <ul class="list-unstyled">
+            <li>Email: info@entertainmentmb.ca</li>
+            <li>Phone: 431-555-5555</li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Follow us</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
 </html>

@@ -31,31 +31,31 @@ if (is_array($rows) && count($rows) > 0) {
 
     // Handle form submission.
     if ($_POST && !empty($_POST['review'])) {
-        // Sanitize user inputs
-        $fullName = !empty($_POST['fullName']) ? filter_input(INPUT_POST, 'fullName', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : "anonymous";
-        $review = filter_input(INPUT_POST, 'review', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $movieId = filter_input(INPUT_POST, 'movieId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $query = "INSERT INTO review (fullName, review, movieId) VALUES (:fullName, :review, :movieId)";
+      // Sanitize user inputs
+      $fullName = !empty($_POST['fullName']) ? filter_input(INPUT_POST, 'fullName', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : "anonymous";
+      $review = filter_input(INPUT_POST, 'review', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+      $movieId = filter_input(INPUT_POST, 'movieId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+      $query = "INSERT INTO review (fullName, review, movieId) VALUES (:fullName, :review, :movieId)";
 
-        // Insert comment into review table
-        $statement = $db->prepare($query);
-        $statement->bindValue(':fullName', $fullName);
-        $statement->bindValue(':review', $review);
-        $statement->bindValue(':movieId', $movieId);
+      // Insert comment into review table
+      $statement = $db->prepare($query);
+      $statement->bindValue(':fullName', $fullName);
+      $statement->bindValue(':review', $review);
+      $statement->bindValue(':movieId', $movieId);
 
     if($statement->execute()){
-        header("Location: select.php?movieId=$movieId");
-        exit();
-        }
-
-        $review_query = "SELECT * FROM review WHERE movieId = :movieId";
-        $review_statement = $db->prepare($review_query);
-        $review_statement->bindValue(':movieId', $row['movieId']);
-
-        $review_statement->execute();
-
-        exit;
+      header("Location: select.php?movieId=$movieId");
+      exit();
     }
+
+    $review_query = "SELECT * FROM review WHERE movieId = :movieId";
+    $review_statement = $db->prepare($review_query);
+    $review_statement->bindValue(':movieId', $row['movieId']);
+
+    $review_statement->execute();
+
+    exit;
+  }
 }
 
  // Handle form submission.

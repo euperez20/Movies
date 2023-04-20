@@ -64,8 +64,8 @@
 
     <title>Welcome to ENTERTAINMENTMB</title>
   </head>
-  <body>
 
+  <body>
 
   <div class="w-75_p-3">
     
@@ -103,30 +103,20 @@
       </nav>
     </header>
 
-
-
-
-
-
-
-
-
-	<h2>Comments</h2>
-
+	  <h2>Comments</h2>
     <div>
-                <h2>Add Comment</h2>
-                <form action="select.php" method="POST">
-                    <input type="hidden" name="movieId" value="1">
-                    
-                    <label for="fullName">Name:</label>
-                    <input type="text" id="fullName" name="fullName" required><br>
-                    <label for="review">Comment:</label>
-                    <textarea id="review" name="review" required></textarea><br>
-                    <input type="submit" name="submit" value="Submit">
-                </form>
-            </div>
+      <h2>Add Comment</h2>
+      <form action="select.php" method="POST">
+        <input type="hidden" name="movieId" value="1">                    
+        <label for="fullName">Name:</label>
+        <input type="text" id="fullName" name="fullName" required><br>
+        <label for="review">Comment:</label>
+        <textarea id="review" name="review" required></textarea><br>
+        <input type="submit" name="submit" value="Submit">
+      </form>
+    </div>
 
-	<?php
+<?php
 		// Fetch comments for this movie
 		$stmt = $db->prepare("SELECT * FROM Review WHERE movieId = :movieId");
 		$stmt->bindParam(':movieId', $_GET['movieId']);

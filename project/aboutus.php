@@ -3,8 +3,8 @@
 /*******w******** 
     
     Name: Eunice Perez
-    Date: March 18,2023
-    Description: Main page for CMS movies
+    Date: April 17,2023
+    Description: Information about company
 
 ****************/ -->
 
@@ -27,8 +27,7 @@
     
     <header>
       <div id="container1">
-          <!-- <h1>ENTERTAINMENTMB</h1> -->
-          <img src="images/logo/logo3.png" alt="My Logo">
+        <img src="images/logo/logo3.png" alt="My Logo">
       </div>
 
         <!-- Navigation menu -->
@@ -78,8 +77,6 @@
         <p>Over the years, Entertainment MB has continued to produce diverse and unique movies that have gained a loyal fan base. The company has expanded its operations globally, and its movies are now distributed in different countries. Entertainment MB has also diversified its operations and now produces TV shows and web series.</p>
         <p>Today, Entertainment MB is recognized as a leading production company that is committed to bringing diversity to the movie industry. Their success is a testament to the team's hard work and dedication to providing quality entertainment. With a vision to continue producing unique and diverse content, Entertainment MB is poised for even greater success in the future.</p>
     </div>
-
-
   
     </div>
     </div>
@@ -91,28 +88,31 @@
   </body>
 
   <footer class="bg-dark text-light py-4">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 mb-3">
-        <h5>About Us</h5>
-        <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
-      </div>
-      <div class="col-md-4 mb-3">
-        <h5>Contact Us</h5>
-        <p>Email: info@entertainmentmb.ca</p>
-        <p>Phone: 431-555-5555</p>
-      </div>
-      <div class="col-md-4 mb-3">
-        <h5>Follow Us</h5>
-        <ul class="list-unstyled">
-          <li><a href="#">Facebook</a></li>
-          <li><a href="#">Twitter</a></li>
-          <li><a href="#">Instagram</a></li>
-        </ul>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5><a href="aboutus.php"> About us</a></h5>
+          <h5><a href="moviesearch_user.php"> Search</a></h5>
+          <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Contact Information</h5>
+          <ul class="list-unstyled">
+            <li>Email: info@entertainmentmb.ca</li>
+            <li>Phone: 431-555-5555</li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Follow us</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
 </html>
 

@@ -210,27 +210,30 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 
 <footer class="bg-dark text-light py-4">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 mb-3">
-        <h5>About Us</h5>
-        <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
-      </div>
-      <div class="col-md-4 mb-3">
-        <h5>Contact Us</h5>
-        <p>Email: info@entertainmentmb.ca</p>
-        <p>Phone: 431-555-5555</p>
-      </div>
-      <div class="col-md-4 mb-3">
-        <h5>Follow Us</h5>
-        <ul class="list-unstyled">
-          <li><a href="#">Facebook</a></li>
-          <li><a href="#">Twitter</a></li>
-          <li><a href="#">Instagram</a></li>
-        </ul>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5><a href="aboutus.php"> About us</a></h5>
+          <h5><a href="moviesearch_user.php"> Search</a></h5>
+          <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Contact Information</h5>
+          <ul class="list-unstyled">
+            <li>Email: info@entertainmentmb.ca</li>
+            <li>Phone: 431-555-5555</li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Follow us</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
 </html>
