@@ -12,11 +12,9 @@
 <!-- bootstrap -->
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
+  <head>    
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="main.css">
 
@@ -26,13 +24,11 @@
     <div class="w-75_p-3">
     
     <header>
-      <div id="container1">
-          <!-- <h1>ENTERTAINMENTMB</h1> -->
+      <div id="container1">         
           <img src="images/logo/logo3.png" alt="My Logo">
       </div>
 
-        <!-- Navigation menu -->
-        
+        <!-- Navigation menu -->        
       <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#000000;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -111,28 +107,31 @@
   </body>
 
   <footer class="bg-dark text-light py-4">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 mb-3">
-        <h5>About Us</h5>
-        <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
-      </div>
-      <div class="col-md-4 mb-3">
-        <h5>Contact Us</h5>
-        <p>Email: info@entertainmentmb.ca</p>
-        <p>Phone: 431-555-5555</p>
-      </div>
-      <div class="col-md-4 mb-3">
-        <h5>Follow Us</h5>
-        <ul class="list-unstyled">
-          <li><a href="#">Facebook</a></li>
-          <li><a href="#">Twitter</a></li>
-          <li><a href="#">Instagram</a></li>
-        </ul>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5><a href="aboutus.php"> About us</a></h5>
+          <h5><a href="moviesearch_user.php"> Search</a></h5>
+          <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Contact</h5>
+          <ul class="list-unstyled">
+            <li>Email: info@entertainmentmb.ca</li>
+            <li>Phone: 431-555-5555</li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Follow us</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
 </html>
 

@@ -264,6 +264,7 @@ if (!$result){
                 <p><input type="file" id="movieImage" name="movieImage"><p>
                
         </div>
+        
 
  
         <!-- Buttons Submit and Delete -->

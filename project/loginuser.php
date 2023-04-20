@@ -4,7 +4,7 @@
     
     Name: Eunice Perez
     Date: February 4,2023
-    Description: Module for authentication
+    Description: Module for user authentication
 
 ****************/
 
@@ -25,7 +25,6 @@ if (isset($_POST['login'])) {
   // Obtener los datos del formulario de inicio de sesión
   $userId = $_POST['userId'];
   $password = $_POST['password'];
-  
 
   // Verificar si el nombre de usuario y la contraseña son válidos
   $query = "SELECT * FROM user WHERE userId = :userId AND password = :password";
@@ -38,21 +37,11 @@ if (isset($_POST['login'])) {
   if ($user) {
     // Si el nombre de usuario y la contraseña son válidos, iniciar sesión para el usuario
     $_SESSION['userId'] = $user['userId'];
-
-
-    // Verificar el valor del campo "role"
-    if ($user['role'] == 'user') {
-    // Si el usuario tiene el campo "role" igual a "user", redirigir a la página loginuser.php
-    header("Location: moviesearch_user.php");
-    exit();
    
-    
+    // Redirigir a la página de inicio
+    header("Location: moviesearch.php");
+    exit();
   } else {
-        // Si el usuario no tiene el campo "role" igual a "user", redirigir a la página login.php
-        header("Location: moviesearch.php");
-        exit();}
-  } else {
-
     // Si el nombre de usuario y la contraseña no son válidos, mostrar un mensaje de error
     $error = "Wrong User ID or Password";
   }

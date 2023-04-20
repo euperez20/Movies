@@ -3,28 +3,63 @@
 /*******w******** 
     
     Name: Eunice Perez
-    Date: March 18,2023
-    Description: Main page for CMS movies
+    Date: April 20,2023
+    Description: Module to register as a user
 
 ****************/
-require('connect.php');
+require_once ('connect.php');
 
-// Query Database
-$query = "SELECT * FROM movie ORDER BY movie.releaseYear DESC LIMIT 20";
 
-$statement = $db->prepare($query);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+$name = $_POST['name'];
+$email = $_POST['email'];
+$password1 = $_POST['password1'];
+$password2 = $_POST['password2'];
 
-$statement->execute();
 
-// Asigning variables
-$movieid = filter_input(INPUT_GET, 'movieId', FILTER_SANITIZE_NUMBER_INT);
-$description = filter_input(INPUT_GET, 'description', FILTER_SANITIZE_STRING);
-$image = filter_input(INPUT_GET, 'movieImage', FILTER_SANITIZE_STRING);
+// Validate user information 
+
+if (empty($name) || empty($email) || empty($password1) || empty($password2)) {
+$error = 'All fields are required';
+} elseif (strlen($password1) < 8) {
+$error = 'Password must be at least 8 characters';
+
+} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+$error = 'The email entered is not valid';
+
+
+} elseif ($password1 !== $password2) {
+$error = 'Passwords do not match. Please try again.';
+} else {
+
+// Passowrd encryptation
+
+$password = $password1;
+// $hashed_password = $password;
+
+// Insert user data into database
+
+$stmt = $db->prepare('INSERT INTO user (fullname, email, password, role) VALUES (:name, :email, :password , "user")');
+$stmt->bindParam(':name', $name);
+$stmt->bindParam(':email', $email);
+$stmt->bindParam(':password', $password);
+
+$stmt->execute();
+
+// Redirect user to login page
+header('Location: index.php');
+exit();
+}
+
+}
 
 ?>
 
-<!-- bootstrap -->
-<!doctype html>
+
+
+
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -36,9 +71,9 @@ $image = filter_input(INPUT_GET, 'movieImage', FILTER_SANITIZE_STRING);
 
     <title>Welcome to ENTERTAINMENTMB</title>
   </head>
-  <body>
+<body>
 
-  <div class="w-75_p-3-new">
+<div class="w-75_p-3-new">
     
     <header>
       <div id="container1">
@@ -82,85 +117,52 @@ $image = filter_input(INPUT_GET, 'movieImage', FILTER_SANITIZE_STRING);
 
         </div>
       </nav>
-    </header>    
+    </header> 
 
-    <!-- Carousel -->
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-      <div class="carousel-item active">
-      <img src="images/carousel/1.jpg" class="d-block w-100" alt="1.jpg">
-    </div>
-    <div class="carousel-item">
-      <img src="images/carousel/2.jpg" class="d-block w-100" alt="2.jpg">
-    </div>
-    <div class="carousel-item">
-      <img src="images/carousel/3.jpg" class="d-block w-100" alt="3.jpg">
-    </div>
-  </div>
-    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
+    <div id="login"> 
+        <?php if (isset($error)): ?>
+            <p><?php echo $error; ?></p>
+        <?php endif; ?>
 
-
-    <div id="container2">
-        <b><p>Welcome to Entertainment MB!</p></b>
-        <p>We are dedicated to providing you with the latest news and information about all things entertainment in Manitoba. Our focus is on movies and movie fans that movies are more than just entertainment, they are a reflection of our society and culture.</p>
-        <p>Our site is designed to be a one-stop-shop for all your movie needs. Whether you are looking for reviews of the latest blockbusters or want to learn more about classic films, we’ve got you covered. We also provide information about upcoming movie events in Manitoba, so you’ll never miss out on the latest releases.</p>
-        <p>At Entertainment MB, we are passionate about movies and we want to share that passion with you. So sit back, relax, and let us guide you through the wonderful world of cinema!</p>
-        <p>I hope this helps! Let me know if you have any other questions.</p>
-    </div>
-
-  <div id="lastmovies">
-    <h2><p>Lastest Movies</p></h2>
-  </div>
-
-    <!-- Showing Content -->
-  <div id=shortpost> 
-
-    <table class="table">
-      
-
-        <div class="row">
-        <?php 
-          $count = 0;
-          while ($row = $statement->fetch() and $count < 4) : 
-          $count++;
-          ?>
-          <div class="col-md-3 mb-3">
-            <div class="card">
-            <?php if(!empty($row['movieImage'])){ ?>
-              <img src="<?= "images/" . $row['movieImage']  ?>" class="card-img-top" alt="<?= $row['title'] ?>">
-               <?PHP  } ?>  
-
-              <div class="card-body">              
-                <h5 class="card-title"><a href="select.php?movieId=<?= $row['movieId']?>" ><?= $row['title'] ?> </a> </h5>
-                <p class="card-text"><?= $row['description'] ?></p>
-              
-              </div>
+        <div class="searchusr" >
+            <h3>User Registration</h3>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Full Name:</label>            
+                <input type="text" id="name" name="name">
             </div>
-          </div>
-        <?php endwhile; ?>
-      </div>                 
-          
-    </table>
-  </div>
-  
-  </div>
-  </div>
-  <!-- Optional JavaScript -->
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input class="form-control" type="email" id="email" name="email">
+            </div>
+
+            <div class="mb-3">
+                <label for="password1" class="form-label">Password:</label>
+                <input class="form-control" type="password" id="password1" name="password1">
+            </div>
+
+            <div class="mb-3">
+            <label for="password2" class="form-label">Repeat Password:</label>
+            <input class="form-control" type="password" id="password2" name="password2">
+            </div>
+
+            <button class="btn btn-primary" name="submit" type="submit" >Register</button>
+        </form>
+        </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </body>
 
-  <footer class="bg-dark text-light py-4">
+
+
+<footer class="bg-dark text-light py-4">
     <div class="container">
       <div class="row">
         <div class="col-md-4 mb-3">
@@ -187,10 +189,7 @@ $image = filter_input(INPUT_GET, 'movieImage', FILTER_SANITIZE_STRING);
     </div>
   </footer>
 
+
 </html>
-
-
-
-
 
 

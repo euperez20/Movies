@@ -103,15 +103,13 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
         </a>
 
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="moviepost.php">Movies</a>
-
-
-          
+          <a class="dropdown-item" href="moviepost.php">Movies</a>          
 
           <a class="dropdown-item" href="categorypost.php">Categories</a>
           <div class="dropdown-divider"></div>
           
           <a class="dropdown-item" href="moviesearch.php">Search</a>
+          <a class="dropdown-item" href="logout.php">Logout</a>
         </div>
         </div>
 
