@@ -61,10 +61,7 @@ if (isset($_POST['submit'])) {
     <title>Welcome to ENTERTAINMENTMB</title>
   </head>
   <body>
-  <div class="w-75_p-3">
- 
-    
- 
+  <div class="w-75_p-3">    
   <header>
       <div id="container1">
           <!-- <h1>ENTERTAINMENTMB</h1> -->
@@ -101,25 +98,23 @@ if (isset($_POST['submit'])) {
             </li>
 
             <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="moviesearch.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         Admin
-        </a>
+              <a class="nav-link dropdown-toggle" href="moviesearch.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Admin
+              </a>
+           
 
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="moviepost.php">Movies</a>          
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="moviepost.php">Movies</a>          
 
-          <a class="dropdown-item" href="categorypost.php">Categories</a>
-          <div class="dropdown-divider"></div>
-          
-          <a class="dropdown-item" href="moviesearch.php">Search</a>
-          <a class="dropdown-item" href="logout.php">Logout</a>
-        </div>
-        </div>
+                <a class="dropdown-item" href="categorypost.php">Categories</a>
+                <div class="dropdown-divider"></div>
+                
+                <a class="dropdown-item" href="moviesearch.php">Search</a>
+                <a class="dropdown-item" href="logout.php">Logout</a>
+              </div>
+            </li>
 
-        
-      </li>
-
-    </ul>
+          </ul>
 
           <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">
             <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
@@ -129,31 +124,25 @@ if (isset($_POST['submit'])) {
         </div>
       </nav>
     </header>
+  
 
       <div class="searchusr">
         <h2>Create a New Movie Category</h2>
         <form id="post" action="categorypost.php" method="post">
        
-            <!-- <div>
-                <p><label for="name">Category Name</label></p>
-                <p><textarea id="name" name="name"></textarea></p>
-            </div> -->
-            <div class="col-md-6">
-              <label for="name" class="form-label">Category Name</label>
-              <input type="text" class="form-control" id="name" name="name">
-            </div>
+          <div class="col-md-6">
+            <label for="name" class="form-label">Category Name</label>
+            <input type="text" class="form-control" id="name" name="name">
+          </div>
 
+          <button type="submit" class="btn btn-primary" name="submit">Submit</button>
 
-            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-
-
-            <!-- <input type="submit" value="Submit" name="submit"> -->
         
         </form>
-    </div>
-</div> 
-</div>   
-</body>
+      </div>
+    </div> 
+  
+
 
 <footer class="bg-dark text-light py-4">
     <div class="container">
@@ -161,7 +150,7 @@ if (isset($_POST['submit'])) {
         <div class="col-md-4 mb-3">
           <h5><a href="aboutus.php"> About us</a></h5>
           <h5><a href="moviesearch_user.php"> Search</a></h5>
-          <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
+          
         </div>
         <div class="col-md-4 mb-3">
           <h5>Contact</h5>
@@ -182,4 +171,13 @@ if (isset($_POST['submit'])) {
     </div>
   </footer>
 
+
+ <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+ 
+
+  </body>
 </html>

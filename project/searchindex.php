@@ -52,72 +52,83 @@ function highlight_words($text, $words) {
   <body>
     
   <header>
-      <div id="container1">
-        <img src="images/logo/logo3.png" alt="My Logo">
-      </div>
-
-        <!-- Navigation menu -->
-        
-      <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#000000;">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="aboutus.php">About</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="moviesearch_user.php">Movies</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="contact.php">Contact Us</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="register.php">Register</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="login.php">Admin</a>
-            </li>   
-          </ul>
-
-          <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">
-            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
-            <button class="btn btn-dark" type="submit">Search</button>
-          </form>
-
+        <div class="container1">
+            <!-- <h1>ENTERTAINMENTMB</h1> -->
+            <img src="images/logo/logo3.png" alt="My Logo">
         </div>
-      </nav>
-    </header>
 
-        <?php if (count($movies) === 0): ?>
+          <!-- Navigation menu -->
+          
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#000000;">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-          <div class="searchusr">        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+              </li>
 
-        
+              <li class="nav-item">
+                <a class="nav-link" href="aboutus.php">About</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="moviesearch_user.php">Movies</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="contact.php">Contact Us</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="register.php">Register</a>
+              </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="moviesearch.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Admin
+                </a>
+            
+
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="moviepost.php">Movies</a>          
+
+                  <a class="dropdown-item" href="categorypost.php">Categories</a>
+                  <div class="dropdown-divider"></div>
+                  
+                  <a class="dropdown-item" href="moviesearch.php">Search</a>
+                  <a class="dropdown-item" href="logout.php">Logout</a>
+                </div>
+              </li>
+
+            </ul>
+
+            <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">
+              <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
+              <button class="btn btn-dark" type="submit">Search</button>
+            </form>
+
+          </div>
+        </nav>
+      </header>
+
+      <?php if (count($movies) === 0): ?>
+
+      <div class="searchusr">  
+
         <form class="form-no-border" method="GET" action="searchindex.php">
           <h3>Search Results</h3>
-    <div class="input-group mb-3">
-  <input type="search" class="form-control" aria-describedby="button-addon2" name="q">
-  <button class="btn btn-primary" type="submit" id="button-addon2">Search</button>
-</div>
+          <div class="input-group mb-3">
+            <input type="search" class="form-control" aria-describedby="button-addon2" name="q">
+            <button class="btn btn-primary" type="submit" id="button-addon2">Search</button>
+          </div>
 
-<h5>No Results </h5>
+          <h5>No Results </h5>
 
-      </form>
+        </form>
         </div>
-
-
-
 
     <?php else: ?>
     <br>
@@ -125,36 +136,26 @@ function highlight_words($text, $words) {
     
     <form class="form-no-border" method="GET" action="searchindex.php">
 
-    <div class="input-group mb-3">
-  <input type="search" class="form-control" aria-describedby="button-addon2" name="q">
-  <button class="btn btn-primary" type="submit" id="button-addon2">Search</button>
-</div>
+      <div class="input-group mb-3">
+        <input type="search" class="form-control" aria-describedby="button-addon2" name="q">
+        <button class="btn btn-primary" type="submit" id="button-addon2">Search</button>
+      </div>
 
-    <?php foreach($movies as $movie): ?>     
-      
-            
-        <div class="searchusr">
+      <?php foreach($movies as $movie): ?>       
+      <div class="searchusr">
         <?php
-         echo "<h4><p class=title>" . $movie['title'] . "</h4>" ;
-      
-      echo "<p>Director: " . $movie['director'] . "</p>";
-      echo "<p>{$movie['description']}</p>";
-      ?>
-        </div>
-            <?php echo "<p class=title><a class=edit href='" . "select.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . " (" . $movie['releaseYear'] . ") " . $movie['director'] . "</a> </p>";
-            ?>             
+        echo "<h4 class=title>" . $movie['title'] . "</h4>" ;      
+        echo "<p>Director: " . $movie['director'] . "</p>";
+        echo "<p>{$movie['description']}</p>";
+        ?>
+      </div>
+        <?php echo "<p class=title><a class=edit href='" . "select.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . " (" . $movie['releaseYear'] . ") " . $movie['director'] . "</a> </p>";
+        ?>             
 
         <?php endforeach ?>
         <?php endif ?>
 
-      </form>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  </body>
+    </form>
 
   <footer class="bg-dark text-light py-4">
     <div class="container">
@@ -182,6 +183,14 @@ function highlight_words($text, $words) {
       </div>
     </div>
   </footer>
+
+
+      <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
 </html>
 
 

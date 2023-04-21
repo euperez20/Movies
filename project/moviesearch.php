@@ -102,25 +102,23 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
             </li>
 
             <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="moviesearch.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         Admin
-        </a>
+              <a class="nav-link dropdown-toggle" href="moviesearch.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Admin
+              </a>
+           
 
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="moviepost.php">Movies</a>          
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="moviepost.php">Movies</a>          
 
-          <a class="dropdown-item" href="categorypost.php">Categories</a>
-          <div class="dropdown-divider"></div>
-          
-          <a class="dropdown-item" href="moviesearch.php">Search</a>
-          <a class="dropdown-item" href="logout.php">Logout</a>
-        </div>
-        </div>
+                <a class="dropdown-item" href="categorypost.php">Categories</a>
+                <div class="dropdown-divider"></div>
+                
+                <a class="dropdown-item" href="moviesearch.php">Search</a>
+                <a class="dropdown-item" href="logout.php">Logout</a>
+              </div>
+            </li>
 
-        
-      </li>
-
-    </ul>
+          </ul>
 
           <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">
             <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
@@ -133,83 +131,61 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 
     <form class="form-no-border" method="GET" action="moviesearch.php">
-    <h3><p>Movie Collection</p></h3>
-    <label for="category">Filter by category:</label>
-    <select name="category" id="category" onchange="this.form.submit()">
-        <option value="">All categories</option>
-        <?php foreach ($categories as $category): ?>
-            <option value="<?= $category['categoryId'] ?>"<?= isset($_GET['category']) && $_GET['category'] == $category['categoryId'] ? ' selected' : '' ?>><?= $category['name'] ?></option>
-        <?php endforeach ?>
-    </select>
+      <h3>Movie Collection</h3>
+      <label for="category">Filter by category:</label>
+      <select name="category" id="category" onchange="this.form.submit()">
+          <option value="">All categories</option>
+          <?php foreach ($categories as $category): ?>
+              <option value="<?= $category['categoryId'] ?>"<?= isset($_GET['category']) && $_GET['category'] == $category['categoryId'] ? ' selected' : '' ?>><?= $category['name'] ?></option>
+          <?php endforeach ?>
+      </select>
 
-          <div >       
-            <label for="category">Sort by:</label>
-            <input type="radio" id="sort-title" name="sort" value="title">
-            <label for="sort-title">Title</label>
-            <input type="radio" id="sort-director" name="sort" value="director">
-            <label for="sort-director">Director</label>
-            <input type="radio" id="sort-releaseYear" name="sort" value="releaseYear">
-            <label for="sort-releaseYear">Release year</label>
-            <button type="submit" class="btn btn-primary">Search</button>
-        </div>
-    <noscript><button class="submitselect" type="submit">Search</button></noscript>
+      <div >       
+        <label for="category">Sort by:</label>
+        <input type="radio" id="sort-title" name="sort" value="title">
+        <label for="sort-title">Title</label>
+        <input type="radio" id="sort-director" name="sort" value="director">
+        <label for="sort-director">Director</label>
+        <input type="radio" id="sort-releaseYear" name="sort" value="releaseYear">
+        <label for="sort-releaseYear">Release year</label>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+      <noscript><button class="submitselect" type="submit">Search</button></noscript>
 
-    <?php if (isset($_GET['category'])): ?>
-    <?php if (empty($movies)): ?>
-      <div class="searchusr">
-        <p>No results.</p>
-    </div>
-    <?php else: ?>
-
-      <!-- Sort results -->
-
+      <?php if (isset($_GET['category'])): ?>
+        <?php if (empty($movies)): ?>
+          <div class="searchusr">
+            <p>No results.</p>
+          </div>
+        <?php else: ?>
 
         <!-- <div class="searchusr"> -->
-          <?php
-        foreach ($movies as $movie) { ?>
+        <?php foreach ($movies as $movie) { ?>
           <div class="searchusr">
-          <?php
-          echo "<h3><p class=title><a class=edit href='" . "admincomments.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . "(" . $movie['releaseYear'] . ")</a></h3>" ;
-          echo "<p>{$movie['description']}</p>" ;
-         
-          if(!empty($movie['movieImage'])){ 
-            echo "<img src=\"images/" . $movie['movieImage'] . "\">";
-            } ?>
-            </div>
+            <?php
+            echo "<h3 class=title><a class=edit href='" . "admincomments.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . "(" . $movie['releaseYear'] . ")</a></h3>" ;
+            echo "<p>{$movie['description']}</p>" ;
+          
+            if(!empty($movie['movieImage'])){            
+              echo "<img src=\"images/" . $movie['movieImage'] . "\" alt=\"" . $movie['title'] . "\">";
+              } ?>
+          </div>
             <?php        
-      }
-?>
+            }
+            ?>
+            <?php endif ?>
+            <?php endif ?>
 
 
-    <?php endif ?>
-<?php endif ?>
+      <!-- Filter Category script -->
+      <script>
+        const categorySelect = document.getElementById('category');
+        categorySelect.addEventListener('change', function() {
+        document.getElementById('movie-search-form').submit();
+        });
+      </script>
 
-
-<!-- Filter Category script -->
-    <script>
-      const categorySelect = document.getElementById('category');
-      categorySelect.addEventListener('change', function() {
-      document.getElementById('movie-search-form').submit();
-      });
-    </script>
-
-    </div>
-    </div>
-
-  </form>
-   
-
-
-<!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  
-
-  </div>
-</body>
-
+    </form>
 
 <footer class="bg-dark text-light py-4">
     <div class="container">
@@ -236,5 +212,16 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
       </div>
     </div>
   </footer>
+
+
+<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  
+
+  </div>
+</body>
 
 </html>

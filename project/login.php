@@ -128,7 +128,7 @@ if (isset($_POST['login'])) {
   <?php if (isset($error)): ?>
     <p><?php echo $error; ?></p>
   <?php endif; ?>
-  <form method="POST" action="">
+  <form method="POST" >
     <label for="userId">User Id:</label>
     <input class="form-control mr-sm-2" type="text" id="userId" name="userId"><br>
     <label for="password">Password:</label>
@@ -136,7 +136,7 @@ if (isset($_POST['login'])) {
     <button type="submit" class="btn btn-primary" name="login">Login</button>
   </form>
   </div>
-</body>
+
 
 <!-- Footer -->
 <footer class="bg-dark text-light py-4">
@@ -166,6 +166,14 @@ if (isset($_POST['login'])) {
   </footer>
 
 
+ <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+ 
+  </div>
+  </body>
 
 </html>
 
