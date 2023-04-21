@@ -142,8 +142,7 @@ $image = filter_input(INPUT_GET, 'movieImage', FILTER_SANITIZE_STRING);
               </div>
             </div>
           </div>
-        <?php endwhile; ?>
-      <!-- </div>                  -->
+        <?php endwhile; ?>     
           
   </section>
   </div>

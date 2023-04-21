@@ -41,13 +41,10 @@ if (isset($_POST['login'])) {
     exit();
    
     
-  } else {
-        // Si el usuario no tiene el campo "role" igual a "user", redirigir a la página login.php
+  } else {        
         header("Location: moviesearch.php");
         exit();}
-  } else {
-
-    // Si el nombre de usuario y la contraseña no son válidos, mostrar un mensaje de error
+  } else {    
     $error = "Wrong User ID or Password";
   }
 }
@@ -67,10 +64,7 @@ if (isset($_POST['login'])) {
     <title>Welcome to ENTERTAINMENTMB</title>
   </head>
   <body>
-<!-- 
-<div class="col">
-  <h1>test</h1>
-</div> -->
+
   <div class="w-75_p-3">
     
   

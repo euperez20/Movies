@@ -129,7 +129,7 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
       </nav>
     </header>
 
-
+    
     <form class="form-no-border" method="GET" action="moviesearch.php">
       <h3>Movie Collection</h3>
       <label for="category">Filter by category:</label>
