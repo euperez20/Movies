@@ -54,8 +54,22 @@ if (is_array($rows) && count($rows) > 0) {
 
     $review_statement->execute();
 
+
+
+  //   $count_reviews = "SELECT m.title, COUNT(r.reviewId) AS num_reviews FROM movie m LEFT JOIN review r ON m.movieId = r.movieId WHERE m.movieId = :movieId GROUP BY m.movieId";
+  // $count_statement = $db->prepare($count_reviews);
+  // $count_statement->bindValue(':movieId', $row['movieId']);
+  // $count_statement->execute();
+  // $count_result = $count_statement->fetch(PDO::FETCH_ASSOC);
+  // $num_reviews = $count_result['num_reviews'];
+  
+
     exit;
   }
+
+  
+
+
 }
 
 ?>
@@ -110,7 +124,7 @@ if (is_array($rows) && count($rows) > 0) {
             </li>
 
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="moviesearch.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admi</a>
+              <a class="nav-link dropdown-toggle" href="moviesearch.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
 
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="moviepost.php">Movies</a>          
@@ -141,6 +155,7 @@ if (is_array($rows) && count($rows) > 0) {
 
         <div class="container1">
         <!-- Movie Details -->
+        <?php $num_reviews = 0; ?>
             <?php if (count($rows) > 0) { ?>
                 
                 <?php echo "<h3 class=title>" . $rows[0]['title'] . " (" . $rows[0]['releaseYear'] . ")</h3>" ; ?>
@@ -156,16 +171,18 @@ if (is_array($rows) && count($rows) > 0) {
                 <!-- User comments -->
                 <div>
                     <h3>Comments</h3>
+                    <!-- <label>Number of reviews:</label>
+<span><?php echo $num_reviews; ?></span> -->
+
                 </div>
             <?php 
             foreach ($rows as $row) {
-               
+              if(!empty($row['review'])){
                 echo '<p><b>' . $row['fullName'] . ' on ' . date('F j, Y', strtotime($row['dateReview'])) . '</b></p>';
-                echo "<p>" . $row['review'] . "</p>";                
-                
-                ?>            
+                echo "<p>" . $row['review'] . "</p>"; 
+                              
+              }
 
-                <?php
             }
         }
             ?>    

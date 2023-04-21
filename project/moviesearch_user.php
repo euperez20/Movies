@@ -126,14 +126,16 @@ $total = $statement_count->fetchColumn();
     <form class="form-no-border" method="GET" action="moviesearch_user.php">
     <h3><p>Movie Collection</p></h3>
     <label for="category">Filter by category:</label>
-    <select name="category" id="category" onchange="this.form.submit()">
-        <option value="">All categories</option>
+    <select class="form-select" aria-label="Default select example" name="category" id="category" onchange="this.form.submit()">
+        <option value="">All categories</option>  
+
         <?php foreach ($categories as $category): ?>
             <option value="<?= $category['categoryId'] ?>"<?= isset($_GET['category']) && $_GET['category'] == $category['categoryId'] ? ' selected' : '' ?>><?= $category['name'] ?></option>
         <?php endforeach ?>
     </select>
 
     <noscript><button class="submitselect" type="submit">Search</button></noscript>
+    <button class="btn btn-primary"  type="submit">Search</button>
 
     <?php if (isset($_GET['category'])): ?>
     <?php if (empty($movies)): ?>
