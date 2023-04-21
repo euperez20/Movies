@@ -171,8 +171,22 @@ if (is_array($rows) && count($rows) > 0) {
                 <!-- User comments -->
                 <div>
                     <h3>Comments</h3>
-                    <!-- <label>Number of reviews:</label>
-<span><?php echo $num_reviews; ?></span> -->
+
+                                <!-- Count comments -->
+            <div class="comments">
+  	          <p class="small text-muted">Comments ( 
+            <?php
+            $pdo = new PDO("mysql:host=localhost;dbname=serverside;charset=utf8", 'serveruser', 'gorgonzola7!');
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $stmt = $pdo->prepare("SELECT COUNT(*) as cant FROM review WHERE movieId = :movieId");
+            $stmt->bindParam(':movieId', $movieId);
+            $stmt->execute();
+            $result = $stmt->fetch();
+            $cant_comments = $result['cant'];
+            echo $cant_comments . " )";
+            ?> 
+</p> 
+</div> 
 
                 </div>
             <?php 

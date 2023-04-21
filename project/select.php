@@ -103,7 +103,7 @@ if (is_array($rows) && count($rows) > 0) {
   <div class="w-75_p-3">
     
   <header>
-      <div id="container1">
+      <div class="container1">
         <img src="images/logo/logo3.png" alt="My Logo">
       </div>
 
@@ -151,17 +151,17 @@ if (is_array($rows) && count($rows) > 0) {
     </header>
     
     <div class="searchusr" >
-    <div id="container1">
+    <div class="container1">
     <p><a href="moviesearch_user.php">Back to Movies</a></p> 
         
         <?php if (count($rows) > 0) { ?>
             <!-- Movie details -->
             <h1><?= $title ?></h1>
-            <h3><?php echo "<p>" . $rows[0]['releaseYear'] . "</p>"; ?> </h3>  
+            <h3><?php echo $rows[0]['releaseYear'] ; ?> </h3>  
             <?php echo "<p>Directed by " . $rows[0]['director'] . "</p>"; ?>           
             <!-- movieID -->    
             <?php if(!empty($rows[0]['movieImage'])){ ?>
-                <?php echo "<img src=\"images/" . $rows[0]['movieImage'] . "\">";
+                <?php echo "<img src=\"images/" . $rows[0]['movieImage'] . "\" alt=\"" . $rows[0]['title'] . "\">";
                 } ?>  
             
             <div class=searchusr>
@@ -172,8 +172,25 @@ if (is_array($rows) && count($rows) > 0) {
             
             
             <div>
-                <h3><p>Comments</p></h3>
+                <h3>Comments</h3>
             </div>
+            
+            <!-- Count comments -->
+            <div class="comments">
+  	          <p class="small text-muted">Comments ( 
+            <?php
+            $pdo = new PDO("mysql:host=localhost;dbname=serverside;charset=utf8", 'serveruser', 'gorgonzola7!');
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $stmt = $pdo->prepare("SELECT COUNT(*) as cant FROM review WHERE movieId = :movieId");
+            $stmt->bindParam(':movieId', $movieId);
+            $stmt->execute();
+            $result = $stmt->fetch();
+            $cant_comments = $result['cant'];
+            echo $cant_comments . " )";
+            ?> 
+</p> 
+</div>    
+
             <?php 
 
 
@@ -209,7 +226,6 @@ if (is_array($rows) && count($rows) > 0) {
     </div>
     </div>  
     </div>
-</body>
 
 <footer class="bg-dark text-light py-4">
     <div class="container">
@@ -237,6 +253,10 @@ if (is_array($rows) && count($rows) > 0) {
       </div>
     </div>
   </footer>
+
+
+  </div>
+</body>
     </html>
 
     

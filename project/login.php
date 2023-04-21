@@ -130,9 +130,9 @@ if (isset($_POST['login'])) {
   <?php endif; ?>
   <form method="POST" action="">
     <label for="userId">User Id:</label>
-    <input type="text" id="userId" name="userId"><br>
+    <input class="form-control mr-sm-2" type="text" id="userId" name="userId"><br>
     <label for="password">Password:</label>
-    <input type="text" id="password" name="password"><br>
+    <input class="form-control mr-sm-2" type="password" id="password" name="password"><br>
     <button type="submit" class="btn btn-primary" name="login">Login</button>
   </form>
   </div>

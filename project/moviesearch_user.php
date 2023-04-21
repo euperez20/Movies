@@ -124,7 +124,7 @@ $total = $statement_count->fetchColumn();
     <div><br>
     
     <form class="form-no-border" method="GET" action="moviesearch_user.php">
-    <h3><p>Movie Collection</p></h3>
+    <h3>Movie Collection</h3>
     <label for="category">Filter by category:</label>
     <select class="form-select" aria-label="Default select example" name="category" id="category" onchange="this.form.submit()">
         <option value="">All categories</option>  
@@ -149,11 +149,14 @@ $total = $statement_count->fetchColumn();
         
           <div class="searchusr">
           <?php
-        echo "<h3><p class=title><a class=edit href='" . "select.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . "(" . $movie['releaseYear'] . ")</a></h3>" ;
+        echo "<h3 class=title><a class=edit href='" . "select.php?movieId" . "=" . $movie['movieId'] . "'" . ">" . $movie['title'] . "(" . $movie['releaseYear'] . ")</a></h3>" ;
         echo "<p>{$movie['description']}</p>";
        
         if(!empty($movie['movieImage'])){ 
-          echo "<img src=\"images/" . $movie['movieImage'] . "\">";
+          echo "<img src=\"images/" . $movie['movieImage'] . "\" alt=\"" . $movie['title'] . "\">";
+
+
+          
           } ?>
           </div>
           <?php          
@@ -172,19 +175,14 @@ $total = $statement_count->fetchColumn();
 
 
     </div>
-    </div>
+
 
   </form>
 
-<!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  
+
 
   </div>
-</body>
+
 
 <footer class="bg-dark text-light py-4">
     <div class="container">
@@ -212,4 +210,16 @@ $total = $statement_count->fetchColumn();
     </div>
   </footer>
 
+
+
+
+
+<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  
+    </div>
+  </body>
 </html>
