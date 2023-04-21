@@ -3,8 +3,8 @@
 /*******w******** 
     
     Name: Eunice Perez
-    Date: February 4,2023
-    Description: Module for reading movie review
+    Date: March 25,2023
+    Description: Module to list movies for users non admin
 
 ****************/
 
@@ -29,8 +29,7 @@ if (!empty($category)) {
     $statement->bindValue(':category', $category);
   
 } else {
-    // $query = "SELECT * FROM movie"; 
-    
+
     $query = "SELECT m.movieId, m.title, m.releaseYear, m.description, m.movieImage, c.categoryId, c.name 
               FROM movie m LEFT JOIN category c ON m.categoryId = c.categoryId";
     $statement = $db->prepare($query);
@@ -40,11 +39,7 @@ if (!empty($category)) {
 $statement->execute();
 $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-
-
-
-
-// Obtener la cantidad total de registros
+// Get fields
 if (!empty($category)) {
     $query_count = "SELECT COUNT(*) FROM movie m LEFT JOIN category c ON m.categoryId = c.categoryId WHERE c.categoryId = :category";
     $statement_count = $db->prepare($query_count);
@@ -53,12 +48,6 @@ if (!empty($category)) {
     $query_count = "SELECT COUNT(*) FROM movie";
     $statement_count = $db->prepare($query_count);
 }
-
-// Obtener la cantidad total de registros
-// $query_count = "SELECT COUNT(*) FROM movie";
-// $statement_count = $db->prepare($query_count);
-// $statement_count->execute();
-// $total = $statement_count->fetchColumn();
 
 $statement_count->execute();
 $total = $statement_count->fetchColumn();
@@ -85,8 +74,7 @@ $total = $statement_count->fetchColumn();
     
   <header>
       <div id="container1">
-          <!-- <h1>ENTERTAINMENTMB</h1> -->
-          <img src="images/logo/logo3.png" alt="My Logo">
+        <img src="images/logo/logo3.png" alt="My Logo">
       </div>
 
         <!-- Navigation menu -->
@@ -112,6 +100,10 @@ $total = $statement_count->fetchColumn();
 
             <li class="nav-item">
               <a class="nav-link" href="contact.php">Contact Us</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="register.php">Register</a>
             </li>
 
             <li class="nav-item">
@@ -141,16 +133,7 @@ $total = $statement_count->fetchColumn();
         <?php endforeach ?>
     </select>
 
-
-
     <noscript><button class="submitselect" type="submit">Search</button></noscript>
-
-
-    <!-- Mostrar los enlaces de paginación -->
-
-
-
-
 
     <?php if (isset($_GET['category'])): ?>
     <?php if (empty($movies)): ?>
@@ -207,7 +190,6 @@ $total = $statement_count->fetchColumn();
         <div class="col-md-4 mb-3">
           <h5><a href="aboutus.php"> About us</a></h5>
           <h5><a href="moviesearch_user.php"> Search</a></h5>
-          <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
         </div>
         <div class="col-md-4 mb-3">
           <h5>Contact</h5>

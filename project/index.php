@@ -109,7 +109,7 @@ $image = filter_input(INPUT_GET, 'movieImage', FILTER_SANITIZE_STRING);
 
 
     <div id="container2">
-        <b><p>Welcome to Entertainment MB!</p></b>
+        <p><b>Welcome to Entertainment MB!</b></p>
         <p>We are dedicated to providing you with the latest news and information about all things entertainment in Manitoba. Our focus is on movies and movie fans that movies are more than just entertainment, they are a reflection of our society and culture.</p>
         <p>Our site is designed to be a one-stop-shop for all your movie needs. Whether you are looking for reviews of the latest blockbusters or want to learn more about classic films, we’ve got you covered. We also provide information about upcoming movie events in Manitoba, so you’ll never miss out on the latest releases.</p>
         <p>At Entertainment MB, we are passionate about movies and we want to share that passion with you. So sit back, relax, and let us guide you through the wonderful world of cinema!</p>
@@ -117,18 +117,15 @@ $image = filter_input(INPUT_GET, 'movieImage', FILTER_SANITIZE_STRING);
     </div>
 
   <div id="lastmovies">
-    <h2><p>Lastest Movies</p></h2>
+    <h2>Lastest Movies</h2>
   </div>
 
     <!-- Showing Content -->
   <div id=shortpost> 
 
     <table class="table">
-      
-
         <div class="row">
-        <?php 
-          $count = 0;
+        <?php $count = 0;
           while ($row = $statement->fetch() and $count < 4) : 
           $count++;
           ?>

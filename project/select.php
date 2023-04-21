@@ -104,8 +104,7 @@ if (is_array($rows) && count($rows) > 0) {
     
   <header>
       <div id="container1">
-          <!-- <h1>ENTERTAINMENTMB</h1> -->
-          <img src="images/logo/logo3.png" alt="My Logo">
+        <img src="images/logo/logo3.png" alt="My Logo">
       </div>
 
         <!-- Navigation menu -->
@@ -130,7 +129,11 @@ if (is_array($rows) && count($rows) > 0) {
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="moviesearch_user.php">Contact Us</a>
+              <a class="nav-link" href="contact.php">Contact Us</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="register.php">Register</a>
             </li>
 
             <li class="nav-item">
@@ -146,8 +149,10 @@ if (is_array($rows) && count($rows) > 0) {
         </div>
       </nav>
     </header>
+    
     <div class="searchusr" >
     <div id="container1">
+    <p><a href="moviesearch_user.php">Back to Movies</a></p> 
         
         <?php if (count($rows) > 0) { ?>
             <!-- Movie details -->
@@ -159,8 +164,8 @@ if (is_array($rows) && count($rows) > 0) {
                 <?php echo "<img src=\"images/" . $rows[0]['movieImage'] . "\">";
                 } ?>  
             
-            <div>
-                <h3><p>Review</p></h3>
+            <div class=searchusr>
+                <h3>Description</h3>
             </div>
             <?php echo "<p>" . $rows[0]['description'] . "</p>"; ?>
             <!-- User comments -->
@@ -170,12 +175,14 @@ if (is_array($rows) && count($rows) > 0) {
                 <h3><p>Comments</p></h3>
             </div>
             <?php 
+
+
             foreach ($rows as $row) {
-                // echo "<p><b>" . $row['fullName'] . "</b></p>";
+              if(!empty($row['review'])){
+
                 echo '<p><b>' . $row['fullName'] . ' on ' . date('F j, Y', strtotime($row['dateReview'])) . '</b></p>';
-                echo "<p>" . $row['review'] . "</p>";
-                // echo "<p>" . "<a class=admincomments href='" . "admincomments.php?movieId" . "=" . $row['movieId'] . "'" . ">" . "Admin Comments" . "</a>" . "</p>" . "<br>"; 
-                
+                echo "<p>" . $row['review'] . "</p>";               
+              }
             }
         }
             ?>
@@ -203,6 +210,33 @@ if (is_array($rows) && count($rows) > 0) {
     </div>  
     </div>
 </body>
+
+<footer class="bg-dark text-light py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5><a href="aboutus.php"> About us</a></h5>
+          <h5><a href="moviesearch_user.php"> Search</a></h5>
+
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Contact</h5>
+          <ul class="list-unstyled">
+            <li>Email: info@entertainmentmb.ca</li>
+            <li>Phone: 431-555-5555</li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Follow us</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
     </html>
 
     

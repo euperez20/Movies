@@ -10,24 +10,20 @@
 
 session_start();
 
-// Verificar si el usuario ya ha iniciado sesión
+// Verify user session
 if (isset($_SESSION['userId'])) {
-  // Si el usuario ya ha iniciado sesión, redirigir a la página de inicio
   header("Location: moviesearch.php");
   exit();
 }
 
-// Verificar si se ha enviado el formulario de inicio de sesión
+// Verify form
 if (isset($_POST['login'])) {
-  // Conectar a la base de datos
   require 'connect.php';
-
-  // Obtener los datos del formulario de inicio de sesión
   $userId = $_POST['userId'];
   $password = $_POST['password'];
   
 
-  // Verificar si el nombre de usuario y la contraseña son válidos
+  // Verify user and password
   $query = "SELECT * FROM user WHERE userId = :userId AND password = :password";
   $statement = $db->prepare($query);
   $statement->bindValue(':userId', $userId);
@@ -36,13 +32,11 @@ if (isset($_POST['login'])) {
   $user = $statement->fetch(PDO::FETCH_ASSOC);
 
   if ($user) {
-    // Si el nombre de usuario y la contraseña son válidos, iniciar sesión para el usuario
     $_SESSION['userId'] = $user['userId'];
 
 
-    // Verificar el valor del campo "role"
+    // Verify user role in DB
     if ($user['role'] == 'user') {
-    // Si el usuario tiene el campo "role" igual a "user", redirigir a la página loginuser.php
     header("Location: moviesearch_user.php");
     exit();
    
@@ -82,8 +76,7 @@ if (isset($_POST['login'])) {
   
   <header>
       <div id="container1">
-          <!-- <h1>ENTERTAINMENTMB</h1> -->
-          <img src="images/logo/logo3.png" alt="My Logo">
+        <img src="images/logo/logo3.png" alt="My Logo">
       </div>
 
         <!-- Navigation menu -->
@@ -108,7 +101,11 @@ if (isset($_POST['login'])) {
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="moviesearch_user.php">Contact Us</a>
+              <a class="nav-link" href="contact.php">Contact Us</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="register.php">Register</a>
             </li>
 
             <li class="nav-item">
@@ -143,28 +140,30 @@ if (isset($_POST['login'])) {
 
 <!-- Footer -->
 <footer class="bg-dark text-light py-4">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 mb-3">
-        <h5>About Us</h5>
-        <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
-      </div>
-      <div class="col-md-4 mb-3">
-        <h5>Contact Us</h5>
-        <p>Email: info@entertainmentmb.ca</p>
-        <p>Phone: 431-555-5555</p>
-      </div>
-      <div class="col-md-4 mb-3">
-        <h5>Follow Us</h5>
-        <ul class="list-unstyled">
-          <li><a href="#">Facebook</a></li>
-          <li><a href="#">Twitter</a></li>
-          <li><a href="#">Instagram</a></li>
-        </ul>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5><a href="aboutus.php"> About us</a></h5>
+          <h5><a href="moviesearch_user.php"> Search</a></h5>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Contact</h5>
+          <ul class="list-unstyled">
+            <li>Email: info@entertainmentmb.ca</li>
+            <li>Phone: 431-555-5555</li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Follow us</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
 
 

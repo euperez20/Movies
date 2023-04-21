@@ -3,7 +3,7 @@
 /*******w******** 
     
     Name: Eunice Perez
-    Date: February 4,2023
+    Date: March 12,2023
     Description: Module for movies administration
 
 ****************/
@@ -58,68 +58,12 @@ if (is_array($rows) && count($rows) > 0) {
   }
 }
 
- // Handle form submission.
-
- if ($_POST && !empty($_POST['review'])) {
-    // Sanitize user inputs
-    $fullName = !empty($_POST['fullName']) ? filter_input(INPUT_POST, 'fullName', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : "anonymous";
-    $review = filter_input(INPUT_POST, 'review', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $movieId = filter_input(INPUT_POST, 'movieId', FILTER_SANITIZE_NUMBER_INT);
-    $query = "INSERT INTO review (fullName, review, movieId) VALUES (:fullName, :review, :movieId)";
-
-    // Insert comment into review table
-    $statement = $db->prepare($query);
-    $statement->bindValue(':fullName', $fullName);
-    $statement->bindValue(':review', $review);
-    $statement->bindValue(':movieId', $movieId);
-
-    if($statement->execute()){
-        header("Location: select.php?movieId=$movieId");
-        exit();
-    }
-
-        // Redirect back to the home page    
-        header("Location: index.php");
-        exit();
-} 
-
-
-
-// Delete comment
-
-if (isset($_GET['delete'])) {
-  
-  $stmt = $db->prepare("DELETE FROM review WHERE reviewId = :reviewId");
-  $stmt->bindValue(':reviewId', $_POST['reviewId']);
-  $stmt->execute();
-
-  // Get the movie ID of the review that was just deleted
-
-  $reviewId = $_GET['reviewId'];
-
-  // Redirect back to the movie page
-  header("Location: select.php?movieId=$movieId");
-  exit;
-}
-
-
-// Check if the id of the post was passed in the URL
-
-if (!isset($_GET['movieId'])) {   
-    header('Location: moviesearch.php');
-    exit;
-
-} 
-
-
-
 ?>
 
 <!-- bootstrap -->
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -132,8 +76,7 @@ if (!isset($_GET['movieId'])) {
   <body>
     
   <header>
-      <div id="container1">
-          <!-- <h1>ENTERTAINMENTMB</h1> -->
+      <div class="container1">
           <img src="images/logo/logo3.png" alt="My Logo">
       </div>
 
@@ -159,30 +102,29 @@ if (!isset($_GET['movieId'])) {
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="moviesearch_user.php">Contact Us</a>
+              <a class="nav-link" href="contact.php">Contact Us</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="register.php">Register</a>
             </li>
 
             <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="moviesearch.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         Admin
-        </a>
+              <a class="nav-link dropdown-toggle" href="moviesearch.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admi</a>
 
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="moviepost.php">Movies</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="moviepost.php">Movies</a>          
 
+                <a class="dropdown-item" href="categorypost.php">Categories</a>
+                <div class="dropdown-divider"></div>
+            
+                <a class="dropdown-item" href="moviesearch.php">Search</a>
+                <a class="dropdown-item" href="logout.php">Logout</a>
+              </div>
+              
+            </li>
 
-          
-
-          <a class="dropdown-item" href="categorypost.php">Categories</a>
-          <div class="dropdown-divider"></div>
-          
-          <a class="dropdown-item" href="moviesearch.php">Search</a>
-        </div>
-        </div>
-
-        
-      </li>
-     </ul>
+          </ul>
 
           <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">
             <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
@@ -193,30 +135,27 @@ if (!isset($_GET['movieId'])) {
       </nav>
     </header>
 
-
-    <body>
+  
     <div class="searchusr">
     <div class="w-75 p-3">
 
-        <div id="container1">
-        
+        <div class="container1">
+        <!-- Movie Details -->
             <?php if (count($rows) > 0) { ?>
-
-                <!-- Movie details -->   
                 
-                <?php echo "<h3><p class=title>" . $rows[0]['title'] . " (" . $rows[0]['releaseYear'] . ")</a></h3>" ; ?>
-                <?php echo "<p><a class=edit href='" . "editmovie.php?movieId" . "=" . $movieId . "'" . ">" . "Edit" . "</a>" . "</p>"; ?>
+                <?php echo "<h3 class=title>" . $rows[0]['title'] . " (" . $rows[0]['releaseYear'] . ")</h3>" ; ?>
+                <?php echo "<p><a class=edit href='" . "editmovie.php?movieId" . "=" . $movieId . "'" . ">" . "Edit" . "</a>" ; ?>
                 
                 <?php echo "<p><a class=edit href='" . "comments.php?movieId" . "=" . $movieId . "'" . ">" . "Admin Comments" . "</a>" . "</p>"; ?>      
                 <?php echo "<p>" . $rows[0]['description'] . "</p>"; ?>                
 
             <?php if(!empty($rows[0]['movieImage'])){ ?>
-                <?php echo "<img src=\"images/" . $rows[0]['movieImage'] . "\">";
+              <?php echo "<img src=\"images/" . $rows[0]['movieImage'] . "\" alt=\"" . $rows[0]['title'] . "\">";
                 } ?> 
 
                 <!-- User comments -->
                 <div>
-                    <h3><p>Comments</p></h3>
+                    <h3>Comments</h3>
                 </div>
             <?php 
             foreach ($rows as $row) {
@@ -224,23 +163,47 @@ if (!isset($_GET['movieId'])) {
                 echo '<p><b>' . $row['fullName'] . ' on ' . date('F j, Y', strtotime($row['dateReview'])) . '</b></p>';
                 echo "<p>" . $row['review'] . "</p>";                
                 
-                ?>
+                ?>            
 
-                
-
-
-               
                 <?php
-                
             }
         }
-            ?>
-
-    
+            ?>    
     </div>
 
 
     </div>
+
+
+
+</div>
+
+<footer class="bg-dark text-light py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5><a href="aboutus.php"> About us</a></h5>
+          <h5><a href="moviesearch_user.php"> Search</a></h5>
+          <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Contact</h5>
+          <ul class="list-unstyled">
+            <li>Email: info@entertainmentmb.ca</li>
+            <li>Phone: 431-555-5555</li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Follow us</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -248,11 +211,7 @@ if (!isset($_GET['movieId'])) {
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-</div>
-
-    </div>
-    </div>
-</body>
+  </body>
     </html>
 
     

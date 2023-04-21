@@ -33,10 +33,8 @@ $error = 'The email entered is not valid';
 $error = 'Passwords do not match. Please try again.';
 } else {
 
-// Passowrd encryptation
-
 $password = $password1;
-// $hashed_password = $password;
+
 
 // Insert user data into database
 
@@ -75,10 +73,9 @@ exit();
 
 <div class="w-75_p-3-new">
     
-    <header>
+<header>
       <div id="container1">
-          <!-- <h1>ENTERTAINMENTMB</h1> -->
-          <img src="images/logo/logo3.png" alt="My Logo">
+        <img src="images/logo/logo3.png" alt="My Logo">
       </div>
 
         <!-- Navigation menu -->
@@ -115,9 +112,14 @@ exit();
             </li>   
           </ul>
 
+          <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">
+            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
+            <button class="btn btn-dark" type="submit">Search</button>
+          </form>
+
         </div>
       </nav>
-    </header> 
+    </header>
 
     <div id="login"> 
         <?php if (isset($error)): ?>
@@ -168,7 +170,6 @@ exit();
         <div class="col-md-4 mb-3">
           <h5><a href="aboutus.php"> About us</a></h5>
           <h5><a href="moviesearch_user.php"> Search</a></h5>
-          <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
         </div>
         <div class="col-md-4 mb-3">
           <h5>Contact Information</h5>

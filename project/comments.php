@@ -4,7 +4,7 @@
     
     Name: Eunice Perez
     Date: February 4,2023
-    Description: Module for movies administration
+    Description: Module for movies comments administration
 
 ****************/
 
@@ -120,7 +120,11 @@ if (is_array($rows) && count($rows) > 0) {
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="moviesearch_user.php">Contact Us</a>
+              <a class="nav-link" href="contact.php">Contact Us</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="register.php">Register</a>
             </li>
 
             <li class="nav-item dropdown">
@@ -129,21 +133,20 @@ if (is_array($rows) && count($rows) > 0) {
         </a>
 
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="moviepost.php">Movies</a>
-
-
-          
+          <a class="dropdown-item" href="moviepost.php">Movies</a>          
 
           <a class="dropdown-item" href="categorypost.php">Categories</a>
           <div class="dropdown-divider"></div>
           
           <a class="dropdown-item" href="moviesearch.php">Search</a>
+          <a class="dropdown-item" href="logout.php">Logout</a>
         </div>
         </div>
 
         
       </li>
-     </ul>
+
+    </ul>
 
           <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">
             <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
@@ -163,7 +166,7 @@ if (is_array($rows) && count($rows) > 0) {
 
         <!-- Result reviews -->
         
-
+        <p><a href="moviesearch.php">Back to Admin Panel</a></p> 
 <div class="container">
 
     <h1>Reviews Admin</h1>
@@ -174,7 +177,6 @@ if (is_array($rows) && count($rows) > 0) {
                 <th class="text-center" scope="col">User</th>
                 <th class="text-center" scope="col">Review</th>
                 <th class="text-center" scope="col">Id Movie</th>
-                <!-- <th class="text-center" scope="col">Category</th> -->
                 <th class="text-center" scope="col">Action</th>
 
             </tr>
@@ -185,21 +187,16 @@ if (is_array($rows) && count($rows) > 0) {
 
                     <td><?= $row['fullName'] ?></td>
                     <td><?= $row['review'] ?></td>
-                    <td><?= $row['movieId'] ?></td>
-                    <!-- <td><?= $comment['name'] ?></td> -->
+                    <td><?= $row['movieId'] ?></td>                   
                     <td>
-                
-    
-                    <!-- <a href="comments.php?delete_comment_id=<?= $row['reviewId'] ?>"onclick="return confirm('Are you sure you want to delete this comment?')">Delete</a> -->
-
-                    <a href="comments.php?movieId=<?= $row['movieId'] ?>&delete_comment_id=<?= $row['reviewId'] ?>" onclick="return confirm('Are you sure you want to delete this comment?')">Delete</a> /
-                        <a href=".php?delete_comment_id=<?= $row['review'] ?>"onclick="return confirm('Are you sure you want to hidden this comment?')">Hidden</a>
+                    <a href="comments.php?movieId=<?= $row['movieId'] ?>&delete_comment_id=<?= $row['reviewId'] ?>" onclick="return confirm('Are you sure you want to delete this comment?')">Delete</a>
+                        <!-- <a href=".php?delete_comment_id=<?= $row['review'] ?>"onclick="return confirm('Are you sure you want to hidden this comment?')">Hidden</a> -->
                     </td>
                 </tr>
             <?php endforeach ?>
         </tbody>
     </table>
-    <p><a href="moviesearch.php">Back to Admin Panel</a></p>  
+ 
 
 </div>
 
@@ -215,16 +212,36 @@ if (is_array($rows) && count($rows) > 0) {
     </div>
 
 
-<!-- Filter Category script -->
-<!-- <script>
-      const categorySelect = document.getElementById('category');
-      categorySelect.addEventListener('change', function() {
-      document.getElementById('movie-search-form').submit();
-      });
-    </script> -->
-
 
 </body>
+
+<footer class="bg-dark text-light py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5><a href="aboutus.php"> About us</a></h5>
+          <h5><a href="moviesearch_user.php"> Search</a></h5>
+          <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Contact</h5>
+          <ul class="list-unstyled">
+            <li>Email: info@entertainmentmb.ca</li>
+            <li>Phone: 431-555-5555</li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Follow us</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
     </html>
 
     

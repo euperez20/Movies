@@ -9,7 +9,6 @@
 ****************/
 
 require('connect.php');
-// require('authenticate.php');
 
 // Prepare the SQL 
 $statement = $db->prepare("INSERT INTO category (name) VALUES (:name )"); 
@@ -19,12 +18,9 @@ $categories_query = $db->prepare("SELECT * FROM category");
 
 // Validate is the review has been submitted
 if (isset($_POST['submit'])) {
-
     // Get the data    
-    $name = $_POST['name'];
-    
+    $name = $_POST['name'];    
     // Validate title and description
-
     $errors = [];
     if (strlen($name) < 1) {
         $errors[] = "Category must be at least 1 character in length";
@@ -97,7 +93,11 @@ if (isset($_POST['submit'])) {
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="moviesearch_user.php">Contact Us</a>
+              <a class="nav-link" href="contact.php">Contact Us</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="register.php">Register</a>
             </li>
 
             <li class="nav-item dropdown">
@@ -106,21 +106,20 @@ if (isset($_POST['submit'])) {
         </a>
 
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="moviepost.php">Movies</a>
-
-
-          
+          <a class="dropdown-item" href="moviepost.php">Movies</a>          
 
           <a class="dropdown-item" href="categorypost.php">Categories</a>
           <div class="dropdown-divider"></div>
           
           <a class="dropdown-item" href="moviesearch.php">Search</a>
+          <a class="dropdown-item" href="logout.php">Logout</a>
         </div>
         </div>
 
         
       </li>
-     </ul>
+
+    </ul>
 
           <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">
             <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
@@ -157,27 +156,30 @@ if (isset($_POST['submit'])) {
 </body>
 
 <footer class="bg-dark text-light py-4">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 mb-3">
-        <h5>About Us</h5>
-        <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
-      </div>
-      <div class="col-md-4 mb-3">
-        <h5>Contact Us</h5>
-        <p>Email: info@entertainmentmb.ca</p>
-        <p>Phone: 431-555-5555</p>
-      </div>
-      <div class="col-md-4 mb-3">
-        <h5>Follow Us</h5>
-        <ul class="list-unstyled">
-          <li><a href="#">Facebook</a></li>
-          <li><a href="#">Twitter</a></li>
-          <li><a href="#">Instagram</a></li>
-        </ul>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5><a href="aboutus.php"> About us</a></h5>
+          <h5><a href="moviesearch_user.php"> Search</a></h5>
+          <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Contact</h5>
+          <ul class="list-unstyled">
+            <li>Email: info@entertainmentmb.ca</li>
+            <li>Phone: 431-555-5555</li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Follow us</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
 </html>

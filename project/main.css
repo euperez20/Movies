@@ -22,8 +22,6 @@ body {
     margin: 0px auto;  
 }
 
-
-
 a {
     text-decoration: none;
 }
@@ -39,9 +37,7 @@ a {
 /* Header */
 
 header {
-    /* background-color: #333; */
     color: #fff;
-    /* padding: 20px; */
 }
 
 header a {
@@ -103,7 +99,7 @@ header nav a {
   top: 50px;
   background-color: #4CAF50;
   min-width: 160px;
-  /* z-index: 1; */
+
 }
 
 .dropdown:hover .dropdown-content {
@@ -133,10 +129,7 @@ header nav a {
 
 #container2{
     width: 90%;
-    /* border: 2px solid black; */
     margin: 5%;
-    
-
 }
 
 main {
@@ -211,7 +204,6 @@ ul li {
 }
 
 .searchform label {
-    /* font-size: 18px; */
     margin-bottom: 10px;
 }
 
@@ -227,14 +219,11 @@ table {
   
   .container_m1 {
     background-color: #fceeee;
-    /* border: solid 2px #d64242; */
     display: flex;
     flex-basis: 80%;
     flex-wrap: wrap; 
     justify-content: space-between; 
-   
-   
-    
+
   }
   
   .box {
@@ -245,13 +234,6 @@ table {
     height: 320px;
     width: 220px;
   }
-
-
-
-/* CAROUSEL */
-
-
-
 
 /* Forms */
 
@@ -292,11 +274,8 @@ form input[type="submit"]:hover {
     background-color: #555;
 }
 
-
-
 /* Administration */
 .adminmenu {
-    /* background-color: #333; */
     color: #fff;
     font-family: Arial, sans-serif;
     padding: 10px;

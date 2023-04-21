@@ -24,11 +24,12 @@
     <div class="w-75_p-3">
     
     <header>
-      <div id="container1">         
-          <img src="images/logo/logo3.png" alt="My Logo">
+      <div id="container1">
+        <img src="images/logo/logo3.png" alt="My Logo">
       </div>
 
-        <!-- Navigation menu -->        
+        <!-- Navigation menu -->
+        
       <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#000000;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -49,7 +50,11 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="moviesearch_user.php">Contact Us</a>
+              <a class="nav-link" href="contact.php">Contact Us</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="register.php">Register</a>
             </li>
 
             <li class="nav-item">
@@ -111,8 +116,7 @@
       <div class="row">
         <div class="col-md-4 mb-3">
           <h5><a href="aboutus.php"> About us</a></h5>
-          <h5><a href="moviesearch_user.php"> Search</a></h5>
-          <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
+          <h5><a href="moviesearch_user.php"> Search</a></h5>          
         </div>
         <div class="col-md-4 mb-3">
           <h5>Contact</h5>

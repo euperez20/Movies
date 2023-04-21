@@ -9,7 +9,6 @@
 ****************/
 
 require('connect.php');
-//require('authenticate.php');
 
 // Query for Categories
 $query_categories = "SELECT * FROM category";
@@ -28,7 +27,7 @@ if(isset($_POST['submit'])) {
     $releaseYear = $_POST['releaseYear'];
     $movieId = $_POST['movieId'];
 
-    //$categoryId = $_POST['categoryId'];
+
     if (!empty($_POST['categoryId'])) {
         $categoryId = $_POST['categoryId'];
     } else {
@@ -141,10 +140,9 @@ if (!$result){
 
   
 <body>
-    <!-- Remember that alternative syntax is good and html inside php is bad -->
+
     <header>
       <div id="container1">
-          <!-- <h1>ENTERTAINMENTMB</h1> -->
           <img src="images/logo/logo3.png" alt="My Logo">
       </div>
 
@@ -180,22 +178,14 @@ if (!$result){
 
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="moviepost.php">Movies</a>
-
-
-          
-
           <a class="dropdown-item" href="categorypost.php">Categories</a>
-          <div class="dropdown-divider"></div>
-          
+          <div class="dropdown-divider"></div>          
           <a class="dropdown-item" href="moviesearch.php">Search</a>
         </div>
-        </div>
-
-        
+        </div>        
       </li>
 
     </ul>
-
           <form class="form-inline my-2 my-lg-0" method="GET" action="searchindex.php">
             <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
             <button class="btn btn-dark" type="submit">Search</button>
@@ -231,9 +221,6 @@ if (!$result){
         <div>
             <p><label for="description">Review:</label></p>
             <p><textarea name="description" id="description"><?php echo $result['description']; ?></textarea></p>
-
-
-
         </div>
 
         <div>
@@ -263,22 +250,42 @@ if (!$result){
                 <p><label for="movieImage">Upload Image</label></p>
                 <p><input type="file" id="movieImage" name="movieImage"><p>
                
-        </div>
-        
+        </div>      
 
  
         <!-- Buttons Submit and Delete -->
         <button class="btn btn-primary" type="submit" name="submit">Update Movie</button>
-        <!-- <input type="submit" name="delete" value="Delete"> -->
         <button type="submit" class="btn btn-primary" name="delete" onclick="return confirm('Are you sure you want to delete this movie?');">Delete</button>
 
     </form>
 
-
-
-
-
-    
     </div> 
 </body>
+
+<footer class="bg-dark text-light py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5><a href="aboutus.php"> About us</a></h5>
+          <h5><a href="moviesearch_user.php"> Search</a></h5>
+          <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Contact</h5>
+          <ul class="list-unstyled">
+            <li>Email: info@entertainmentmb.ca</li>
+            <li>Phone: 431-555-5555</li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Follow us</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
 </html>

@@ -3,7 +3,7 @@
 /*******w******** 
     
     Name: Eunice Perez
-    Date: February 4,2023
+    Date: March 27,2023
     Description: Module for reading movie review
 
 ****************/
@@ -94,7 +94,11 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="moviesearch_user.php">Contact Us</a>
+              <a class="nav-link" href="contact.php">Contact Us</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="register.php">Register</a>
             </li>
 
             <li class="nav-item dropdown">
@@ -213,7 +217,6 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
         <div class="col-md-4 mb-3">
           <h5><a href="aboutus.php"> About us</a></h5>
           <h5><a href="moviesearch_user.php"> Search</a></h5>
-          <!-- <p>We are a movie database website that provides information on various movies and TV shows. Our goal is to help you discover new movies and TV shows to watch.</p> -->
         </div>
         <div class="col-md-4 mb-3">
           <h5>Contact Information</h5>
